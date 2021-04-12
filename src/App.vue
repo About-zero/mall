@@ -1,11 +1,17 @@
 <template>
-  <div id="app"></div>
+  <div id="app">
+    <router-view></router-view>
+    <Footer v-show="$route.meta.isShowFooterTag"></Footer>
+  </div>
 </template>
 
 <script>
+import Footer from "./components/footer";
 export default {
   name: "App",
-  components: {},
+  components: {
+    Footer,
+  },
 };
 </script>
 

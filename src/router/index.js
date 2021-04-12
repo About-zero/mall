@@ -40,31 +40,31 @@ const router = new VueRouter({
                 path: 'all',
                 name: 'All',
                 component: () =>
-                    import('../views/all'),
+                    import('../views/order/all'),
             },
             {
                 path: 'daifukuan',
                 name: 'Daifukuan',
                 component: () =>
-                    import('../views/daifukuan'),
+                    import('../views/order/daifukuan'),
             },
             {
                 path: 'daifahuo',
                 name: 'Daifahuo',
                 component: () =>
-                    import('../views/daifahuo'),
+                    import('../views/order/daifahuo'),
             },
             {
                 path: 'daishouhuo',
                 name: 'Daishouhuo',
                 component: () =>
-                    import('../views/daishouhuo'),
+                    import('../views/order/daishouhuo'),
             },
             {
                 path: 'daipingjia',
                 name: 'Daipingjia',
                 component: () =>
-                    import('../views/daipingjia'),
+                    import('../views/order/daipingjia'),
             },
         ]
     },
@@ -86,7 +86,7 @@ const router = new VueRouter({
                 path: 'address',
                 name: 'Address',
                 component: () =>
-                    import('../views/address'),
+                    import('../views/mine/address'),
             },
         ]
     },
@@ -103,18 +103,19 @@ const router = new VueRouter({
         component: () =>
             import('../views/more'),
         meta: { isShowFooterTag: false },
+        redirect: '/more/guide',
         children: [
             {
                 path: 'guide',
                 name: 'Guide',
                 component: () =>
-                    import('../views/guide'),
+                    import('../views/more/guide'),
             },
             {
                 path: 'service',
                 name: 'Service',
                 component: () =>
-                    import('../views/service'),
+                    import('../views/more/service'),
             },
         ]
     },
