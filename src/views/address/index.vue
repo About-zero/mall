@@ -1,10 +1,6 @@
 <!--  -->
 <template>
-  <div class="mine">
-    mine
-    <router-view></router-view>
-    <button @click="goAddress">我的地址</button>
-  </div>
+  <div class="address">111112</div>
 </template>
 
 <script>
@@ -23,11 +19,7 @@ export default {
   //监控data中的数据变化
   watch: {},
   //方法集合
-  methods: {
-    goAddress() {
-      this.$router.push("/mine/address");
-    },
-  },
+  methods: {},
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）
