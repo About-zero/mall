@@ -6,7 +6,6 @@ const router = new VueRouter({
     routes: [{
             path: '/',
             redirect: '/home'
-
         },
         {
             path: '/login',
@@ -69,7 +68,7 @@ const router = new VueRouter({
                     path: 'twodetail',
                     name: 'Twodetail',
                     component: () =>
-                        import ('../views/order/detail/index.vue'),
+                        import ('../views/order/detail'),
                 },
             ]
         },
@@ -86,12 +85,13 @@ const router = new VueRouter({
             component: () =>
                 import ('../views/mine'),
             meta: { isShowFooterTag: true },
-            children: [{
-                path: 'address',
-                name: 'Address',
-                component: () =>
-                    import ('../views/mine/address'),
-            }, ]
+        },
+        {
+            path: '/address',
+            name: 'Address',
+            component: () =>
+                import ('../views/address'),
+            meta: { isShowFooterTag: false },
         },
         {
             path: '/detail/:id',

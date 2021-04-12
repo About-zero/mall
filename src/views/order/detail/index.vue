@@ -31,7 +31,11 @@ export default {
       });
     },
     onClickLeft() {
-      Toast("返回");
+      Toast(
+        this.$router.push({
+          path: `all`,
+        })
+      );
     },
     onClickRight() {
       Toast("按钮");
