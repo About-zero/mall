@@ -147,6 +147,12 @@ export default {
         }
       });
     },
+    godetail(id) {
+      this.$router.push({
+        name: `Detail`,
+        query: { id },
+      });
+    },
   },
   created() {
     this.initSwiper();
