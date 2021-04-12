@@ -70,13 +70,12 @@ const router = new VueRouter({
       name: "Mine",
       component: () => import("../views/mine"),
       meta: { isShowFooterTag: true },
-      children: [
-        {
-          path: "address",
-          name: "Address",
-          component: () => import("../views/mine/address"),
-        },
-      ],
+    },
+    {
+      path: "/address",
+      name: "Address",
+      component: () => import("../views/address"),
+      meta: { isShowFooterTag: false },
     },
     {
       path: "/detail/:id",
