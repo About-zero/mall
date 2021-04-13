@@ -115,7 +115,7 @@
     </van-goods-action>
   </div>
 </template>
-
+  
 <script>
 import Vue from "vue";
 import { reqProductDetail } from "../../api/product";
