@@ -56,6 +56,7 @@
         </li>
       </ul>
     </van-list>
+    >>>>>>> 9fb9d7cf26069bc4a9c2cdc4909dc23eb4ebaa80
   </div>
 </template>
 
@@ -144,6 +145,12 @@ export default {
           }
           this.list = this.list.concat(res.data.products);
         }
+      });
+    },
+    godetail(id) {
+      this.$router.push({
+        name: `Detail`,
+        query: { id },
       });
     },
   },
