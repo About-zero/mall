@@ -1,5 +1,5 @@
 <template>
-  <div class="detail" v-if="obj">
+  <div class="detail" v-if="obj" style="margin-bottom:45px">
     <van-nav-bar
       left-text=""
       right-text="cart"
@@ -7,14 +7,13 @@
       @click-left="onClickLeft"
       @click-right="onClickRight"
       class="Van"
+      fixed="true"
+      placeholder="true"
     />
     <van-swipe @change="onChange" class="custom-img">
       <van-swipe-item
         ><img :src="obj.coverImg" alt="" width="200" height="200"
       /></van-swipe-item>
-      <!-- <template #indicator>
-        <div class="custom-indicator">{{ current + 1 }}/4</div>
-      </template> -->
     </van-swipe>
     <!-- 价格详情 -->
     <div class="real-price">
@@ -67,8 +66,38 @@
     <!-- <van-button type="info" block @click="addcart(obj._id, obj.quantity)"
       >添加购物车</van-button
     > -->
-    <!-- <van-popup v-model="show" position="top" :style="{ height: '30%' }" /> -->
-    <div class="group-warp"></div>
+    <div class="group-wrap">
+      <div class="mui-title">
+        <span class="span-lf">商品评价</span>
+        <span class="span-rg">查看全部></span>
+      </div>
+      <div class="mui-ul">
+        <li>好用</li>
+        <li>不卡</li>
+        <li>实惠</li>
+        <li>物流快</li>
+      </div>
+      <div class="mui-img">
+        <img
+          src="//img.alicdn.com/tps/TB1l6dkOXXXXXXEXVXXXXXXXXXX-210-210.png_80x80Q90s50.jpg_.webp"
+          alt=""
+        />
+        <span>I***0</span>
+        <p class="span1">很好用</p>
+      </div>
+    </div>
+    <div class="kuang"></div>
+    <div class="modul-wrap">
+      <div class="shop-logo">
+        <img
+          src="//img.alicdn.com/imgextra//8e/11/TB1dO03w4naK1RjSZFBSuwW7VXa.jpg_120x120Q50s50.jpg_.webp"
+          alt=""
+        />
+      </div>
+
+      <span class="phone-shop">手机旗舰店</span>
+      <span class="tianmao">天猫</span>
+    </div>
     <van-goods-action>
       <van-goods-action-icon icon="chat-o" text="客服" color="#ee0a24" />
       <van-goods-action-icon icon="cart-o" text="购物车" />
@@ -104,6 +133,7 @@ export default {
       obj: null,
       current: 0,
       show: false,
+      fixed: false,
     };
   },
   //监听属性 类似于data概念
@@ -261,5 +291,90 @@ export default {
 }
 .content {
   padding: 16px 16px 160px;
+}
+.group-wrap {
+  width: 365px;
+  height: 155px;
+}
+.mui-title {
+  width: 365px;
+  height: 20px;
+  padding-top: 10px;
+  padding-left: 7px;
+  line-height: 20px;
+}
+.mui-title .span-lf {
+  float: left;
+  font-size: 14px;
+}
+.mui-title .span-rg {
+  float: right;
+  font-size: 12px;
+}
+.mui-ul {
+  height: 35px;
+}
+.mui-ul li {
+  width: 53px;
+  height: 14px;
+  background: #fee;
+  float: left;
+  font-size: 12px;
+  list-style: none;
+  text-align: center;
+  margin: 6px 3px;
+  padding: 6px 9px;
+  color: #666;
+  border-radius: 26px;
+  line-height: 14px;
+}
+.mui-img {
+  width: 345px;
+  height: 50px;
+  font-size: 10px;
+  float: left;
+}
+.mui-img img {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 5px;
+  margin-left: 10px;
+}
+.mui-text {
+  width: 365px;
+  height: 20px;
+}
+.span1 {
+  width: 365px;
+  height: 20px;
+  font-size: 13px;
+  line-height: 16px;
+  margin: 10px 10px;
+}
+.modul-wrap {
+  width: 355px;
+  height: 139px;
+  padding: 10px;
+}
+.shop-logo img {
+  width: 54px;
+  height: 54px;
+  border: 1px solid rgba(151, 151, 151, 0.5);
+  float: left;
+}
+.phone-shop {
+  margin: 5px;
+}
+.tianmao {
+  background: red;
+  font-size: 13px;
+  color: #f5f5f5;
+  border-radius: 7px;
+  padding: 2px;
+}
+.van-nav-bar__placeholder {
+  opacity: 0.9;
+  background: #ccc;
 }
 </style>
