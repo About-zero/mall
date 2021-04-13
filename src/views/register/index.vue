@@ -3,9 +3,10 @@
   <div class="login reg">
     <van-nav-bar
       title="登录和注册"
-      left-text="返回"
+      left-text="返回登录"
       left-arrow
       @click-left="onClickLeft"
+      class="tit"
     />
     <van-uploader :after-read="afterRead" v-if="!imgUrl" />
     <img :src="imgUrl" alt="" v-else />
@@ -34,7 +35,12 @@
         :rules="[{ required: true, message: '请填写昵称' }]"
       />
       <div style="margin: 16px;">
-        <van-button round block type="info" native-type="submit"
+        <van-button
+          round
+          block
+          type="info"
+          native-type="submit"
+          color="linear-gradient(to right, #ff6034, #ee0a24)"
           >注册</van-button
         >
       </div>
@@ -67,6 +73,9 @@ export default {
   watch: {},
   //方法集合
   methods: {
+    onClickLeft() {
+      this.$router.replace("/login");
+    },
     afterRead(file) {
       // 此时可以自行将文件上传至服务器
       console.log(file);
@@ -113,7 +122,8 @@ button {
 .reg {
   text-align: center;
 }
-/* .tit{
-  : 7rem;
-} */
+.tit {
+  margin-bottom: 7rem;
+  border: 1px #ccc solid;
+}
 </style>

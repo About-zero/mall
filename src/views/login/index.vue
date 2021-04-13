@@ -3,8 +3,9 @@
     <van-nav-bar
       title="
       登录和注册"
+      left-text="返回首页"
       left-arrow
-      fixed="true"
+      @click-left="onClickLeft"
       class="tit"
     />
     <van-form @submit="onSubmit">
@@ -24,12 +25,28 @@
         :rules="[{ required: true, message: '请填写密码' }]"
       />
       <div style="margin: 16px;">
-        <van-button round block type="info" native-type="submit"
+        <van-button
+          round
+          block
+          type="info"
+          native-type="submit"
+          color="linear-gradient(to right, #ff6034, #ee0a24)"
           >登录</van-button
+        >
+        <br />
+        <van-button
+          round
+          block
+          type="info"
+          native-type="submit"
+          @click="goreg"
+          color="linear-gradient(to right, #ff6034, #ee0a24)"
+          >注册</van-button
         >
       </div>
     </van-form>
-    <van-cell value="注册" @click="goreg" />
+
+    <!-- <van-cell value="注册" @click="goreg" /> -->
   </div>
 </template>
 
@@ -68,6 +85,9 @@ export default {
     goreg() {
       this.$router.replace("/register");
     },
+    onClickLeft() {
+      this.$router.push("/home");
+    },
   },
   created() {},
   //生命周期 - 创建完成（可以访问当前this实例）
@@ -94,15 +114,14 @@ img {
   margin: 5px 0;
 } */
 button {
-  background-color: red;
+  /* background-color: red; */
   border: 0;
 }
 .login {
   text-align: center;
-  padding-top: 7rem;
 }
 .tit {
-  height: 3rem;
+  margin-bottom: 7rem;
   border: 1px #ccc solid;
 }
 </style>

@@ -23,7 +23,7 @@ instance.interceptors.response.use(function(response) {
 
     return response;
 }, function(error) {
-    alert(error)
+    // alert("没有授权,请登录")
     // 对响应错误做点什么
     if (error && error.message.indexOf("401") > -1) {
       // 危险通知
