@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { serverURL } from './common'
 import { getToken } from '../utils/util'
+import { Notify } from "vant";
+
 const instance = axios.create({
     baseURL: serverURL,
     timeoutL: 5000
@@ -21,7 +23,13 @@ instance.interceptors.response.use(function(response) {
 
     return response;
 }, function(error) {
-
+    // alert("没有授权,请登录")
+    // 对响应错误做点什么
+    if (error && error.message.indexOf("401") > -1) {
+      // 危险通知
+      Notify({ type: "danger", message: "没有授权,请登录" });
+      location.href='/#/login'
+    }
     return Promise.reject(error);
 });
 
