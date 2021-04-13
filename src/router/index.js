@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
 const router = new VueRouter({
+
     routes: [{
             path: '/',
             redirect: '/home'
@@ -34,11 +35,13 @@ const router = new VueRouter({
             component: () =>
                 import ('../views/order'),
             meta: { isShowFooterTag: true },
+            redirect: 'order/all',
             children: [{
                     path: 'all',
                     name: 'All',
                     component: () =>
                         import ('../views/order/all'),
+                    meta: { isShowFooterTag: true }
                 },
                 {
                     path: 'daifukuan',
@@ -51,24 +54,28 @@ const router = new VueRouter({
                     name: 'Daifahuo',
                     component: () =>
                         import ('../views/order/daifahuo'),
+                    meta: { isShowFooterTag: true }
                 },
                 {
                     path: 'daishouhuo',
                     name: 'Daishouhuo',
                     component: () =>
                         import ('../views/order/daishouhuo'),
+                    meta: { isShowFooterTag: true }
                 },
                 {
                     path: 'daipingjia',
                     name: 'Daipingjia',
                     component: () =>
                         import ('../views/order/daipingjia'),
+                    meta: { isShowFooterTag: true }
                 },
                 {
                     path: 'twodetail',
                     name: 'Twodetail',
                     component: () =>
                         import ('../views/order/detail'),
+                    meta: { isShowFooterTag: true }
                 },
             ]
         },
@@ -124,5 +131,4 @@ const router = new VueRouter({
     ],
     linkActiveClass: 'active'
 })
-
 export default router;

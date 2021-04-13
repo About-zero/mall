@@ -9,17 +9,22 @@
               <span class="img" @click="logout">
                 <img
                   src="https://img1.baidu.com/it/u=775515149,2448484574&fm=26&fmt=auto&gp=0.jpg"
-                  alt=""
-              /></span>
+                  alt
+                />
+              </span>
             </li>
             <li>
               <span class="name">{{ username }}</span>
             </li>
           </ul>
           <ul style="float:right">
-            <li><van-icon name="friends-o" size="30" color="wheat" /></li>
+            <li>
+              <van-icon name="friends-o" size="30" color="wheat" />
+            </li>
             <li style="width:14px"></li>
-            <li><van-icon name="setting-o" size="30" color="wheat" /></li>
+            <li>
+              <van-icon name="setting-o" size="30" color="wheat" />
+            </li>
             <li style="width:14px"></li>
           </ul>
         </div>
@@ -45,7 +50,9 @@
       <div class="head">
         <div class="head-top">
           <ul class="nav">
-            <li><h4>我的订单</h4></li>
+            <li>
+              <h4>我的订单</h4>
+            </li>
             <li>
               <span>查看更多订单></span>
             </li>
@@ -68,11 +75,13 @@
               <span class="img">
                 <img
                   src="https://www.miumiu.com/content/dam/miumiu_products/5/5BA/5BA200/N88F0118/5BA200_N88_F0118_V_GOO_SLF.png/jcr:content/renditions/miumiu_color_jpg.1280.1280.jpg"
-                  alt=""
+                  alt
                 />
               </span>
               <span class="shop">
-                <p><van-icon name="send-gift-o" />已下单</p>
+                <p>
+                  <van-icon name="send-gift-o" />已下单
+                </p>
                 <p>商品已下单</p>
               </span>
             </li>
@@ -80,7 +89,9 @@
         </div>
         <div class="head-bot">
           <ul class="nav">
-            <li><h4>必备工具</h4></li>
+            <li>
+              <h4>必备工具</h4>
+            </li>
             <li>
               <span>查看全部工具></span>
             </li>

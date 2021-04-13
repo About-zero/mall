@@ -6,7 +6,7 @@
       </template>
     </van-search>
 
-    <van-card
+    <!-- <van-card
       num="2"
       price="2.00"
       desc="描述信息"
@@ -23,37 +23,65 @@
         <van-button size="mini">查询余额</van-button>
         <van-button size="mini">再次充值</van-button>
       </template>
-    </van-card>
-
-    <van-submit-bar :price="3050" button-text="提交订单" @submit="onSubmit">
-      <van-checkbox v-model="checked">全选</van-checkbox>
-      <template #tip>
-        你的收货地址不支持同城送,
-        <span @click="onClickEditAddress">修改地址</span>
-      </template>
-    </van-submit-bar>
+    </van-card>-->
+    <div class="orderCenter" v-for="(v,i) in ifor" :key="i">
+      <ul class="orderAllul">
+        <li>
+          <span class="orderLeft10">充值中心</span>
+          <span class="orderRight11">充值成功</span>
+        </li>
+        <li>
+          <img src="https://img.alicdn.com/tfs/TB1.2hkSFXXXXblapXXXXXXXXXX-184-184.png_200x200" alt />
+          <div class="orderLeft23">
+            <div class="orderRight20">
+              <span>话费充值-河南联通</span>
+              <span class="span1">9.97</span>
+            </div>
+            <div class="orderRight20 fontcolor">
+              <span>充值号码:17634430748</span>
+              <span class="span1">*1</span>
+            </div>
+          </div>
+        </li>
+        <li class="ordeRight30">
+          <span class="fontcolor">总价￥10.00</span>
+          <span>实付款￥10.00</span>
+        </li>
+        <li class="buttons">
+          <van-button round type="primary" size="small">删出订单</van-button>
+          <van-button round type="primary" size="small">查询余额</van-button>
+          <van-button round type="primary" size="small">再次充值</van-button>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
+import { getOrderList } from "../../../api/order";
 export default {
   data() {
     return {
       checked: true,
       value: "",
-      ifor: [1, 2, 3, 4],
+      ifor: [1, 2, 3],
     };
   },
   components: {},
   methods: {
-    onSubmit() {},
-    onClickEditAddress() {},
     onSearch() {},
     goDetail() {
       this.$router.push({
         path: `twodetail`,
       });
     },
+    async orderLists() {
+      const result = await getOrderList();
+      console.log(result);
+    },
+  },
+  created() {
+    this.orderLists();
   },
 };
 </script>
@@ -70,19 +98,51 @@ export default {
   box-sizing: border-box;
   border-radius: 15px;
 }
-.all {
-  background: rgb(243, 241, 241);
-  /* margin: 10px; */
-  padding: 10px;
+.orderLeft10 {
+  float: left;
+  font-size: 14px;
 }
-.van-search--show-action {
-  /* border-radius: 20px; */
-  padding: 0;
+.orderRight11 {
+  float: right;
+  font-size: 14px;
+  color: orangered;
 }
-.van-search__content--square {
-  border-radius: 20px;
+.orderAllul li {
+  overflow: hidden;
+  margin: 10px;
 }
-.van-search__content--square {
+img {
+  width: 90px;
+  float: left;
+}
+.orderRight20 {
+  width: 200px;
+  float: right;
+  font-size: 12px;
+}
+.span1 {
+  float: right;
+}
+.fontcolor {
+  color: rgb(153, 153, 153);
+}
+.ordeRight30 {
+  font-size: 12px;
+  float: right;
+}
+.ordeRight30 span {
+  margin: 0 10px;
+}
+.buttons {
+  float: right;
+  /* color: rgb(102, 102, 102); */
+}
+.buttons button {
+  color: rgb(102, 102, 102);
   background: white;
+  border: 1px solid #ccc;
+}
+.orderCenter {
+  overflow: hidden;
 }
 </style>

@@ -1,5 +1,6 @@
 <template>
   <div class="detail">
+    12111
     <van-nav-bar
       title="标题"
       left-text="返回"
