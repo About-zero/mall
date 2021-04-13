@@ -12,11 +12,9 @@
       <van-swipe-item
         ><img :src="obj.coverImg" alt="" width="200" height="200"
       /></van-swipe-item>
-      <template #indicator>
-        <div class="custom-indicator">
-          <!-- {{ current + 1 }}/4 -->
-        </div>
-      </template>
+      <!-- <template #indicator>
+        <div class="custom-indicator">{{ current + 1 }}/4</div>
+      </template> -->
     </van-swipe>
     <!-- 价格详情 -->
     <div class="real-price">
@@ -69,6 +67,8 @@
     <!-- <van-button type="info" block @click="addcart(obj._id, obj.quantity)"
       >添加购物车</van-button
     > -->
+    <!-- <van-popup v-model="show" position="top" :style="{ height: '30%' }" /> -->
+    <div class="group-warp"></div>
     <van-goods-action>
       <van-goods-action-icon icon="chat-o" text="客服" color="#ee0a24" />
       <van-goods-action-icon icon="cart-o" text="购物车" />
