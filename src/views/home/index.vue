@@ -56,7 +56,7 @@
         </li>
       </ul>
     </van-list>
-    >>>>>>> 9fb9d7cf26069bc4a9c2cdc4909dc23eb4ebaa80
+   
   </div>
 </template>
 
