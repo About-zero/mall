@@ -3,63 +3,122 @@
     <div class='cart'>
       <div class="head gradient">
         <div class="text clear">
-          <div class="left">购物车(<span></span>)</div>
+          <div class="left">购物车(<span>{{sumnum}}</span>)</div>
           <div class="right">管理</div>
         </div>
-        <p class="total">共<span></span>件宝贝</p>
-      </div>
+        <p class="total">共<span>{{sumnum}}</span>件宝贝</p>
+      </div> 
+      
         <div class="page-content">
-          <div class="shop">
-            <van-checkbox v-model="checked" class="checkbox">
-              <!-- <img src="../../../assets/cat.PNG" alt=""> -->
-              复选框</van-checkbox>
+          <div class="shop" v-for="(item,index) in goodslist" :key="item._id">
               <div class="sp">
-                <van-checkbox v-model="checked" class="checkbox">
+                <van-checkbox v-model="item.checked" class="checkbox">
                   <div class="picwrap">
-                    <img src="" alt="">
+                    <img :src="item.product.coverImg" alt="">
                   </div>
                  </van-checkbox>
                  <div class="detailwrap">
-                    <div class="detail"></div>
-                    <div class="price">
-                      <span>￥</span>
-                        <input type="button" value="-">
-                        <input type="text">
-                        <input type="button" value="+">
+                    <div class="detail">
+                      <p>{{item.product.name}}</p>
                     </div>
+                    <div class="price">
+                      <span>￥{{item.product.price}}</span>
+                      <div class="x">
+                        <input  type="button"  value="-" @click="sub(index)">
+                        <input type="text" :value="item.quantity">
+                        <input type="button" value="+" @click="add(index)">
+                        
+                      </div>
+                    </div>
+                    
                   </div>
               </div>
           </div>
+        
         </div>
+        <van-submit-bar :price="sumPrice*100" button-text="结算" @submit="onSubmit">
+            <van-checkbox v-model="checked">全选</van-checkbox>
+        </van-submit-bar>
     </div>
 </template>
 
 <script>
     import {reqCartDetail} from "../../api/cart";
     import {setToken} from "../../utils/util"
+    // import {reqAddCart} from "../../api/cart"
+    // import {reqRemoveProduct} from "../../api/cart"
 export default {
     
     components: {},
     data() {
         
         return {
-            checked: true,
-            goodslist:[]
+            // flag:false,
+            goodslist:[],
+            
         };
     },
     //监听属性 类似于data概念
-    computed: {},
+    computed: {
+      sumnum(){
+        return this.goodslist.reduce(function(pre,cur){
+          return pre+cur.quantity
+        },0)
+      },
+      checked:{
+            set(flag){
+                return this.goodslist.forEach((item) => (item.checked = flag))
+            },
+            get(){
+                return(
+                    this.goodslist.length == this.goodslist.filter((item) => item.checked == true).length
+                )
+            }
+        },
+        sumPrice(){
+            return this.goodslist.filter(item =>(item.checked == true)).reduce(
+                function(pre,cur) {
+                    console.log(cur.quantity);
+                    console.log(cur.product.price);
+                    return pre+cur.product.price*cur.quantity
+                    },0)
+        }
+    
+    },
     //监控data中的数据变化
     watch: {},
     
     methods: {
       async  initCartList(){
-        setToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDZkZDExOTlhMTg3YjJkNzBlYzI2ZDUiLCJpYXQiOjE2MTgyMjUwODksImV4cCI6MTYxODI2MTA4OX0.8bHz338PP-mA9bhRhU1n-vTvQx189a5lFy5Nt2sxXNs')
+        setToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDZkZDExOTlhMTg3YjJkNzBlYzI2ZDUiLCJpYXQiOjE2MTgyNzI2NjUsImV4cCI6MTYxODMwODY2NX0.iJOtiiiPdkZlmOZhizNTseM5M_sQpdL0BHuhovSbhyI')
         let res = await reqCartDetail();
         console.log(res);
         this.goodslist = res.data;
         console.log(this.goodslist);
         },
+      onSubmit(){
+        let arr = this.goodslist.filter(item => item.checked == true)
+        // console.log(arr);
+         this.$router.push({path:'/buy',query:{arr}})
+      },
+       sub(index){
+        this.goodslist[index].quantity -= 1;
+        let num1 = this.goodslist[index].quantity;
+        if(num1<1){
+          this.goodslist[index].quantity=0;
+        }
+        // let indexid = this.goodslist[index]._id;
+        // let res = await reqAddCart({product:indexid,quantity:-1})
+        // console.log(res);
+        // this.initCartList()
+      },
+      add(index){
+        this.goodslist[index].quantity += 1;
+      // let indexid = this.goodslist[index]._id;
+      // let res = await  reqAddCart({product:indexid,quantity:this.goodslist[index].quantity});
+      // console.log(res);
+      // this.initCartList()
+      }
         
     },
     //生命周期 - 创建完成（可以访问当前this实例）
@@ -81,15 +140,46 @@ export default {
     }
 </script>
 <style  scoped>
+
+.van-submit-bar__bar{
+  width: 300px;
+  position: fixed;
+  bottom: 45px;
+  background-color: white;
+  width: 372px;
+}
+.disabled{
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.6;
+}
+.x{
+  float:right;
+}
+.x input{
+outline: none;
+border: 1px #ccc solid;
+text-align: center;
+}
+.total span{
+  text-align: center;
+}
+.text .left span{
+  font-size: 15px;
+}
+html body{
+  background-color: #f2f2f2 !important;
+}
     .cart{
       width: 400px;
-      height: 500px;
+      /* height: 500px; */
       background-color: #f2f2f2;
       position: relative;
     }
     .head{
       height: 177px;
       background-color:tomato;
+      box-sizing: border-box;
     }
     .text{
       color: white;
@@ -108,6 +198,7 @@ export default {
       float: right;
       font-weight: 500;
       font-size: 16px;
+      /* margin-right: 50px; */
     }
     .total{
       color: white;
@@ -120,26 +211,28 @@ export default {
    
     .page-content{
       width:360px;
-      left: 8px;
+      left: 21px;
       top: 30px;
       background-color: #f2f2f2;
-      height: 100%;
       position: absolute;
       margin-bottom: 20px;
       margin-top: 85px;
       border-radius: 12px;
+      padding-bottom: 100px;
     }
+    
     .shop{
       background-color: white;
-      min-height: 187px;
+      min-height: 150px;
       border-radius: 10px;
       border-radius: 12px;
       overflow: hidden;
       padding: 10px;
+      margin-bottom: 10px;
     }
     
     .sp{
-      background-color: rgb(64, 62, 192);
+      /* background-color: rgb(64, 62, 192); */
       margin-top: 20px;
       display: flex;
       height: 140px;
@@ -154,7 +247,7 @@ export default {
     .sp .detailwrap{
       width: 100px;
       height: 100px;
-      background-color: yellowgreen;
+      /* background-color: yellowgreen; */
       margin-top: 20px;
       width: 164px;
       height: 120px;
@@ -163,12 +256,12 @@ export default {
     .detailwrap .detail{
       width:164px;
       height: 100px;
-      background-color: violet;
+      /* background-color: violet; */
     }
     .detailwrap .price{
       width: 164px;
       height: 20px;
-      background-color: turquoise;
+      /* background-color: turquoise; */
     }
     .price input{
       display: inline-block;
@@ -177,6 +270,17 @@ export default {
       width: 50px;
     }
     .price input:nth-of-type(1){
-      margin-left: 40px;
+      margin-left: 20px;
+    }
+    .picwrap img{
+      width: 100px;
+      height: 100px;
+    }
+    .detail p{
+      font-size: 1px;
+    }
+    .price span{
+      font-size: 1px;
+      color: tomato;
     }
 </style>
