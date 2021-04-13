@@ -37,7 +37,6 @@
       <span class="delcity">广东广州</span>
     </div>
     <div class="kuang"></div>
-
     <van-cell is-link @click="showPopup"
       ><div class="prom-content">
         <span class="cuxiao">促销</span>
@@ -52,6 +51,21 @@
         <span class="goumai">购买可得{{ obj.price / 50 }}积分</span>
       </div></van-popup
     >
+    <div class="kuang"></div>
+    <div class="prom-content">
+      <span class="cuxiao">促销</span>
+      <span style="font-size:12px">至老城区：</span>
+      <span class="goumai">店铺预售 付款后三天内发货</span>
+    </div>
+
+    <div class="prom-content">
+      <span class="cuxiao">服务</span>
+      <span style="font-size:12px">假一赔四 ·</span>
+      <span class="goumai">破损包退 ·</span>
+      <span style="font-size:11px">退货运费险 ·</span>
+      <span style="font-size:11px">极速退款</span>
+    </div>
+    <div class="kuang"></div>
     <!-- <van-button type="info" block @click="addcart(obj._id, obj.quantity)"
       >添加购物车</van-button
     > -->
@@ -64,15 +78,25 @@
         text="加入购物车"
         @click="addcart(obj._id, obj.quantity)"
       />
-      <van-goods-action-button type="danger" text="立即购买" />
+      <van-goods-action-button
+        type="danger"
+        text="立即购买"
+        @click="nowBuy(obj._id)"
+      />
     </van-goods-action>
   </div>
 </template>
 
 <script>
+import Vue from "vue";
 import { reqProductDetail } from "../../api/product";
-import { reqAddcart } from "../../api/cart";
+import { reqAddCart } from "../../api/cart";
 import { isLogined } from "../../utils/util";
+import { Toast } from "vant";
+Vue.use(Toast);
+import { ActionSheet } from "vant";
+
+Vue.use(ActionSheet);
 export default {
   components: {},
   data() {
@@ -109,19 +133,23 @@ export default {
         this.obj = result.data;
       }
     },
+
     addcart(id, quantity) {
       if (isLogined()) {
         console.log(11);
-        reqAddcart({ product: id, quantity }).then((res) => {
+        reqAddCart({ product: id, quantity }).then((res) => {
           console.log(res);
           if (res.status === 200) {
             console.log(22);
-            this.$router.push("/cart");
+            Toast.success("加入购物车成功");
           }
         });
       } else {
         this.$router.replace("/login");
       }
+    },
+    nowBuy(id) {
+      console.log(id);
     },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
@@ -227,7 +255,11 @@ export default {
   font-size: 10px;
   color: red;
 }
+
 .prom-content .goumai {
   font-size: 11px;
+}
+.content {
+  padding: 16px 16px 160px;
 }
 </style>
