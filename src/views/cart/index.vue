@@ -5,18 +5,20 @@
       <div class="text clear">
         <div class="left">
           购物车(
-          <span>{{sumnum}}</span>)
+          <span>{{ sumnum }}</span
+          >)
         </div>
-        <div class="right" @click="manage()">{{a}}</div>
+        <div class="right" @click="manage()">{{ a }}</div>
       </div>
       <p class="total">
         共
-        <span>{{sumnum}}</span>件宝贝
+        <span>{{ sumnum }}</span
+        >件宝贝
       </p>
     </div>
 
     <div class="page-content">
-      <div class="shop" v-for="(item,index) in goodslist" :key="item._id">
+      <div class="shop" v-for="(item, index) in goodslist" :key="item._id">
         <div class="sp">
           <van-checkbox v-model="item.checked" class="checkbox">
             <div class="picwrap">
@@ -25,10 +27,10 @@
           </van-checkbox>
           <div class="detailwrap">
             <div class="detail">
-              <p>{{item.product.name}}</p>
+              <p>{{ item.product.name }}</p>
             </div>
             <div class="price">
-              <span>￥{{item.product.price}}</span>
+              <span>￥{{ item.product.price }}</span>
               <div class="x">
                 <input type="button" value="-" @click="sub(index)" />
                 <input type="text" :value="item.quantity" />
@@ -39,7 +41,12 @@
         </div>
       </div>
     </div>
-    <van-submit-bar v-if="flag" :price="sumPrice*100" button-text="结算" @submit="onSubmit">
+    <van-submit-bar
+      v-if="flag"
+      :price="sumPrice * 100"
+      button-text="结算"
+      @submit="onSubmit"
+    >
       <van-checkbox v-model="checked">全选</van-checkbox>
     </van-submit-bar>
     <van-submit-bar v-else button-text="删除" @submit="onDelete">
@@ -51,8 +58,10 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import { Toast } from 'vant';
+import Vue from "vue";
+import { Toast } from "vant";
+
+import { mapMutations } from "vuex";
 
 Vue.use(Toast);
 import { reqCartDetail } from "../../api/cart";
@@ -80,29 +89,34 @@ export default {
         return pre + cur.quantity;
       }, 0);
     },
- 
-      checked:{
-            set(flag){
-                return this.goodslist.forEach((item) => (item.checked = flag))
-            },
-            get(){
-                return(
-                    this.goodslist.length == this.goodslist.filter((item) => item.checked == true).length
-                )
-            }
-        },
-        sumPrice(){
-            return this.goodslist.filter(item =>(item.checked == true)).reduce(
-                function(pre,cur) {
-                    console.log(cur.quantity);
-                    console.log(cur.product.price);
-                    return pre+cur.product.price*cur.quantity
-                    },0)
-        }
-    
+
+    checked: {
+      set(flag) {
+        return this.goodslist.forEach((item) => (item.checked = flag));
+      },
+      get() {
+        return (
+          this.goodslist.length ==
+          this.goodslist.filter((item) => item.checked == true).length
+        );
+      },
     },
+    sumPrice() {
+      return this.goodslist
+        .filter((item) => item.checked == true)
+        .reduce(function (pre, cur) {
+          console.log(cur.quantity);
+          console.log(cur.product.price);
+          return pre + cur.product.price * cur.quantity;
+        }, 0);
+    },
+  },
 
   methods: {
+    ...mapMutations({
+      changactive: "footer/changeActive",
+    }),
+
     async initCartList() {
       let res = await reqCartDetail();
       console.log(res);
@@ -112,12 +126,11 @@ export default {
     onSubmit() {
       let arr = this.goodslist.filter((item) => item.checked == true);
       console.log(arr);
-      if(arr.length!=0){
+      if (arr.length != 0) {
         this.$router.push({ path: "/buy", query: { arr } });
-      }else{
-        Toast('您还没有选择宝贝哦~');
+      } else {
+        Toast("您还没有选择宝贝哦~");
       }
-      
     },
     onDelete() {
       Dialog.confirm({
@@ -169,6 +182,8 @@ export default {
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
     this.initCartList();
+    this.changactive(1);
+    console.log(this.$store.state.footer.active);
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
