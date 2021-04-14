@@ -100,12 +100,9 @@ export default {
 }
 .orderLeft10 {
   float: left;
-  font-size: 14px;
 }
 .orderRight11 {
   float: right;
-  font-size: 14px;
-  color: orangered;
 }
 .orderAllul li {
   overflow: hidden;
