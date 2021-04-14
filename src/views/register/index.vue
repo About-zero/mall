@@ -86,8 +86,12 @@ export default {
       const result = await reqRegister({ ...obj, avatar: this.imgUrl });
       console.log(result);
       if (result.status == 200) {
-        Toast.success("注册成功");
-        this.$router.replace("/login");
+        if (result.data.code == "success") {
+          Toast.success("登录成功");
+          this.$router.replace("/login");
+        } else {
+          Toast.fail(result.data.message);
+        }
       }
     },
   },
