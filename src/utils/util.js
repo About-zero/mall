@@ -3,7 +3,7 @@ export const isLogined = () => {
   if (localStorage.getItem("token")) {
     return true;
   }
-  return true;
+  return false;
 };
 // 添加token
 export const setToken = (token) => {
