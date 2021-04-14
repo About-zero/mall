@@ -19,14 +19,7 @@
         <img :src="item.coverImg" alt />
       </van-swipe-item>
     </van-swipe>
-    <ul class="eyLbbH">
-      <li v-for="(item, index) in iconList" :key="index">
-        <a href="javascript:;">
-          <img :src="item.src" alt />
-          <p>{{ item.title }}</p>
-        </a>
-      </li>
-    </ul>
+    
     <van-swipe class="my-swipe" :autoplay="5000" indicator-color="white" :show-indicators="false">
       <van-swipe-item>
         <ul class="eyLbbH">
