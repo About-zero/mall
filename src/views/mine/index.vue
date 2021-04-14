@@ -14,7 +14,7 @@
               </span>
             </li>
             <li>
-              <span class="name">{{ username }}</span>
+              <span class="name">{{ nickName }}</span>
             </li>
           </ul>
           <ul style="float:right">
@@ -49,7 +49,7 @@
       </div>
       <div class="head">
         <div class="head-top">
-          <ul class="nav">
+          <ul class="nav" @click="all">
             <li>
               <h4>我的订单</h4>
             </li>
@@ -59,11 +59,31 @@
           </ul>
           <ul class="cont1">
             <van-grid class="cont" :border="false" :column-num="5">
-              <van-grid-item icon="pending-payment" badge="99+" text="待付款" />
-              <van-grid-item icon="send-gift-o" badge="99+" text="待发货" />
-              <van-grid-item icon="logistics" badge="99+" text="待收货" />
-              <van-grid-item icon="comment-o" badge="99+" text="评价" />
-              <van-grid-item icon="balance-pay" badge="99+" text="退款/收货" />
+              <van-grid-item
+                icon="pending-payment"
+                to="/order/daifukuan"
+                badge="99+"
+                text="待付款"
+              />
+              <van-grid-item
+                icon="send-gift-o"
+                to="/order/daifahuo"
+                badge="99+"
+                text="待发货"
+              />
+              <van-grid-item
+                icon="logistics"
+                to="/order/daishouhuo"
+                badge="99+"
+                text="待收货"
+              />
+              <van-grid-item
+                icon="comment-o"
+                to="/order/daipingjia"
+                badge="99+"
+                text="评价"
+              />
+              <van-grid-item icon="balance-pay" badge="99+" text="退款/售后" />
             </van-grid>
           </ul>
           <ul class="activity">
@@ -79,9 +99,7 @@
                 />
               </span>
               <span class="shop">
-                <p>
-                  <van-icon name="send-gift-o" />已下单
-                </p>
+                <p><van-icon name="send-gift-o" />已下单</p>
                 <p>商品已下单</p>
               </span>
             </li>
@@ -103,8 +121,16 @@
               <van-grid-item icon="cash-back-record" text="闲置换钱" />
               <van-grid-item icon="service" text="客服人工" />
               <van-grid-item icon="alipay" text="花呗" />
-              <van-grid-item icon="logistics" text="我的快递" />
-              <van-grid-item icon="chat" text="我的评价" />
+              <van-grid-item
+                icon="logistics"
+                to="/order/daishouhuo"
+                text="我的快递"
+              />
+              <van-grid-item
+                icon="chat"
+                to="/order/daipingjia"
+                text="我的评价"
+              />
               <van-grid-item icon="setting" text="主题皮肤" />
             </van-grid>
           </ul>
@@ -125,6 +151,7 @@ export default {
     //这里存放数据
     return {
       username: "",
+      nickName: "",
     };
   },
   //监听属性 类似于data概念
@@ -138,7 +165,7 @@ export default {
       console.log(result);
       if (result.status === 200) {
         console.log(result.data.userName);
-        this.username = result.data.userName;
+        this.nickName = result.data.nickName;
       }
     },
 
@@ -152,6 +179,9 @@ export default {
           this.$router.go(0);
         })
         .catch(() => {});
+    },
+    all() {
+      this.$router.push("/order/all");
     },
     onClickLeft() {},
     onClickRight() {},
@@ -170,17 +200,17 @@ export default {
 };
 </script>
 <style scoped>
-* {
+body {
   padding: 0;
   margin: 0;
 }
 .htm {
+  width: 100%;
   min-height: 15rem;
   background-color: #f4f4f4a2;
   overflow: hidden;
 }
 .my-top {
-  height: 11rem;
   background-color: orangered;
   width: 100%;
   padding: 10px;
@@ -209,8 +239,10 @@ export default {
   height: 81px;
   width: 55px;
 }
-.top1 > .name {
+.top1 .name {
   font-size: 25px;
+  font-weight: 900;
+  font-family: "楷体";
 }
 .top2 {
   height: 67px;
@@ -225,13 +257,17 @@ export default {
   flex-direction: column;
   justify-content: space-around;
 }
+.head {
+  width: 100%;
+}
 .head-top,
 .head-bot {
-  width: 351px;
-  height: 199px;
+  width: 95%;
+  box-sizing: border-box;
   background-color: white;
   margin: 10px;
   border-radius: 15px;
+  padding: 8px;
 }
 .nav {
   padding: 0 10px;
@@ -250,23 +286,22 @@ export default {
   color: #ccc;
 }
 .cont {
-  height: 76px;
-  box-sizing: border-box;
+  height: 85px;
 }
 .cont1 {
-  height: 76px;
+  height: 85px;
   box-sizing: border-box;
 }
 .head-top > .van-grid-item {
   height: 76px;
 }
 .activity {
+  overflow: hidden;
   padding: 5px;
   height: 62px;
-  margin: 0 10px 0px 10px;
   background-color: #f4f4f4a2;
   border-radius: 10px;
-  width: 317px;
+  width: 95%;
 }
 
 .activity img {

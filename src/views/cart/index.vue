@@ -7,7 +7,7 @@
           购物车(
           <span>{{sumnum}}</span>)
         </div>
-        <div class="right">管理</div>
+        <div class="right" @click="manage()">{{a}}</div>
       </div>
       <p class="total">
         共
@@ -39,15 +39,23 @@
         </div>
       </div>
     </div>
-    <van-submit-bar :price="sumPrice*100" button-text="结算" @submit="onSubmit">
+    <van-submit-bar v-if="flag" :price="sumPrice*100" button-text="结算" @submit="onSubmit">
       <van-checkbox v-model="checked">全选</van-checkbox>
     </van-submit-bar>
+    <van-submit-bar v-else button-text="删除" @submit="onDelete">
+      <van-checkbox class="allselect" v-model="checked">全选</van-checkbox>
+    </van-submit-bar>
+    <!-- <van-cell is-link @click="showPopup">展示弹出层</van-cell> -->
+    <!-- <van-popup v-model="show">内容</van-popup> -->
   </div>
 </template>
 
 <script>
 import { reqCartDetail } from "../../api/cart";
-// import { setToken } from "../../utils/util";
+import { reqRemoveProductMany } from "../../api/cart";
+import { Dialog } from "vant";
+
+// Dialog({ message: '提示' });
 // import {reqAddCart} from "../../api/cart"
 // import {reqRemoveProduct} from "../../api/cart"
 export default {
@@ -56,6 +64,9 @@ export default {
     return {
       // flag:false,
       goodslist: [],
+      a: "管理",
+      flag: true,
+      show: false,
     };
   },
   //监听属性 类似于data概念
@@ -91,7 +102,6 @@ export default {
 
   methods: {
     async initCartList() {
-      // setToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDZkZDExOTlhMTg3YjJkNzBlYzI2ZDUiLCJpYXQiOjE2MTgyNzI2NjUsImV4cCI6MTYxODMwODY2NX0.iJOtiiiPdkZlmOZhizNTseM5M_sQpdL0BHuhovSbhyI')
       let res = await reqCartDetail();
       console.log(res);
       this.goodslist = res.data;
@@ -99,8 +109,32 @@ export default {
     },
     onSubmit() {
       let arr = this.goodslist.filter((item) => item.checked == true);
-      // console.log(arr);
+      console.log(arr);
       this.$router.push({ path: "/buy", query: { arr } });
+    },
+    onDelete() {
+      Dialog.confirm({
+        title: "确认将这一个宝贝删除？",
+        message: "确认删除吗",
+      })
+        .then(async () => {
+          // on confirm
+          let arr = this.goodslist.filter((item) => item.checked == true);
+          console.log(arr);
+          let idArr = [];
+          arr.forEach((v) => {
+            idArr.push(v._id);
+          });
+          console.log(idArr);
+          let res = await reqRemoveProductMany({ ids: idArr });
+          console.log(res);
+          if (res.status == 200) {
+            this.initCartList();
+          }
+        })
+        .catch(() => {
+          // on cancel
+        });
     },
     sub(index) {
       this.goodslist[index].quantity -= 1;
@@ -119,6 +153,10 @@ export default {
       // let res = await  reqAddCart({product:indexid,quantity:this.goodslist[index].quantity});
       // console.log(res);
       // this.initCartList()
+    },
+    manage() {
+      this.flag = !this.flag;
+      this.a = this.flag ? "管理" : "完成";
     },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
@@ -279,5 +317,8 @@ html body {
 .price span {
   font-size: 1px;
   color: tomato;
+}
+.van-submit-bar__bar {
+  justify-content: space-around;
 }
 </style>
