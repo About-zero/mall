@@ -41,7 +41,7 @@
 import Vue from "vue";
 import { SubmitBar } from "vant";
 import { Toast } from "vant";
-
+import {addressSingle} from "../../api/address"
 Vue.use(SubmitBar);
 import { reqSubmitOrder } from "../../api/order";
 // import { Toast } from 'vant';
@@ -51,7 +51,7 @@ export default {
     return {
       buyarr: [],
       buylist: [],
-      chosenAddressId: "1",
+      chosenAddressId:1,
       list: [
         {
           id: "1",
@@ -80,7 +80,7 @@ export default {
       console.log(item,index);
       this.$router.push('/address')
       },
-        initbuy(){
+       async initbuy(){
             console.log((this.$route.query.arr));
             this.buylist = this.$route.query.arr;
             console.log(this.buylist);
@@ -94,7 +94,36 @@ export default {
                 this.buyarr.push(obj)
             })
            console.log(this.buyarr);
-           
+           let aaa = localStorage.getItem('addressId');
+            console.log(aaa);
+            let res = await addressSingle(aaa);
+            console.log(res);
+            let obj1 = {
+              id: res.data._id,
+              name: res.data.receiver,
+              tel: res.data.mobile,
+              regions:res.data.regions,
+              address: res.data.address,
+              isDefault: res.data.isDefault,
+            }
+            this.chosenAddressId = obj1.id;
+            console.log(this.idd);
+            console.log(obj1);
+            this.list = [obj1];
+            /*
+            data:
+address: "杭州市西湖区 黄龙万科中心"
+createdAt: "2021-04-14T08:03:46.545Z"
+isDefault: false
+mobile: "13456786543"
+receiver: "宋志康康"
+regions: "北京市北京市东城区"
+updatedAt: "2021-04-14T10:51:34.947Z"
+user: "60755b01bc1200350079cd1e"
+__v: 0
+_id: "6076a1e2cad4792700a110b6"
+__proto__: Object
+            */
         },
      async onSubmit() {
        console.log(this.list[0]);
@@ -117,7 +146,9 @@ export default {
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
     this.initbuy();
-    console.log(this.$route.query.id);
+    // console.log(this.$route.query.id);
+    console.log(this.chosenAddressId);
+    
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
@@ -155,7 +186,9 @@ export default {
 .van-address-list__add {
   display: none;
 }
-
+.van-address-item__edit{
+  display: none;
+}
 .shop {
   background-color: white;
   min-height: 150px;

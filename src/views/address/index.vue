@@ -103,9 +103,11 @@ export default {
     chooseAddress(item,index){
       console.log(item,index);
       localStorage.setItem('addressId',item.id)
-      const arr =localStorage.getItem('productArr')
+      const str =localStorage.getItem('productStr')
       // this.$router.push({path:'/buy',query:{arr}})
+      let arr = JSON.parse(str);
       console.log(arr);
+      this.$router.push({path:'/buy',query:{arr}})
       // this.$router.push('/buy')
     }
   },
@@ -125,4 +127,8 @@ export default {
   activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>
-<style scoped></style>
+<style scoped>
+#app .van-cell--borderless .van-icon .van-icon-edit .van-address-item__edit{
+display: none;
+}
+</style>
