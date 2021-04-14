@@ -64,7 +64,7 @@ export default {
             // flag:false,
             goodslist:[],
             a:'管理',
-            flag:false,
+            flag:true,
             show: false,
         };
     },
@@ -108,7 +108,7 @@ export default {
         },
       onSubmit(){
         let arr = this.goodslist.filter(item => item.checked == true)
-        // console.log(arr);
+         console.log(arr);
          this.$router.push({path:'/buy',query:{arr}})
       },
        onDelete(){

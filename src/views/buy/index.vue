@@ -80,13 +80,14 @@ export default {
     
     methods: {
         initbuy(){
-            console.log(this.$route.query.arr);
+            console.log((this.$route.query.arr));
             this.buylist = this.$route.query.arr;
+            console.log(this.buylist);
             // let buyarr= [];
            this.buylist.forEach(v=>{
                 let obj={
                     quantity:v.quantity,
-                    product :v.product._id,
+                    product :v._id,
                     price:v.product.price
                 }
                 this.buyarr.push(obj)
@@ -112,6 +113,7 @@ export default {
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {
         this.initbuy()
+        // console.log(this.$route.query.arr);
     },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {

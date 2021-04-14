@@ -110,7 +110,7 @@
       <van-goods-action-button
         type="danger"
         text="立即购买"
-        @click="nowBuy(obj._id)"
+        @click="nowBuy(obj)"
       />
     </van-goods-action>
   </div>
@@ -178,8 +178,21 @@ export default {
         this.$router.replace("/login");
       }
     },
-    nowBuy(id) {
-      console.log(id);
+    nowBuy(obj) {
+      // console.log(quantity,product,price);
+      // let arr = {quantity,product,price}
+      // console.log(arr);
+      // console.log(obj);
+      // let product = obj.coverImg;
+      obj.product = {
+        coverImg:obj.coverImg,
+        price:obj.price
+        }
+      let arr = [obj];
+      obj.quantity = 1;
+      // arr.push({product});
+      this.$router.push({path:'/buy',query:{arr}})
+
     },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
