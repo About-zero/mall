@@ -19,14 +19,34 @@
         <img :src="item.coverImg" alt="" />
       </van-swipe-item>
     </van-swipe>
-    <ul class="eyLbbH">
-      <li v-for="(item, index) in iconList" :key="index">
-        <a href="javascript:;">
-          <img :src="item.src" alt="" />
-          <p>{{ item.title }}</p>
-        </a>
-      </li>
-    </ul>
+    <van-swipe
+      class="my-swipe"
+      :autoplay="5000"
+      indicator-color="white"
+      :show-indicators="false"
+    >
+      <van-swipe-item>
+        <ul class="eyLbbH">
+          <li v-for="(item, index) in iconList" :key="index">
+            <a href="javascript:;">
+              <img :src="item.src" alt="" />
+              <p>{{ item.title }}</p>
+            </a>
+          </li>
+        </ul>
+      </van-swipe-item>
+      <van-swipe-item>
+        <ul class="eyLbbH">
+          <li v-for="(item, index) in iconList1" :key="index">
+            <a href="javascript:;">
+              <img :src="item.src" alt="" />
+              <p>{{ item.title }}</p>
+            </a>
+          </li>
+        </ul>
+      </van-swipe-item>
+    </van-swipe>
+
     <ul class="advertising">
       <li>
         <p>聚划算</p>
@@ -42,6 +62,37 @@
         <img src="../../assets/avter4.png" alt="" />
       </li>
     </ul>
+    <ul class="advertising1">
+      <li>
+        <img src="../../assets/avter5.png" alt="" />
+      </li>
+      <li>
+        <img src="../../assets/avter6.png" alt="" />
+      </li>
+      <li>
+        <img src="../../assets/avter7.png" alt="" />
+      </li>
+      <li>
+        <img src="../../assets/avter3.png" alt="" />
+      </li>
+    </ul>
+    <ul class="advertising1 advLast">
+      <li>
+        <img src="../../assets/avter5.png" alt="" />
+      </li>
+      <li>
+        <img src="../../assets/avter6.png" alt="" />
+      </li>
+      <li>
+        <img src="../../assets/avter7.png" alt="" />
+      </li>
+      <li>
+        <img src="../../assets/avter3.png" alt="" />
+      </li>
+    </ul>
+    <div class="live">
+      <img src="../../assets/live.png" alt="" />
+    </div>
     <van-list
       v-model="loading"
       :finished="finished"
@@ -56,7 +107,6 @@
         </li>
       </ul>
     </van-list>
-   
   </div>
 </template>
 
@@ -71,6 +121,16 @@ import src7 from "../../assets/icon-img/7.png";
 import src8 from "../../assets/icon-img/8.png";
 import src9 from "../../assets/icon-img/9.png";
 import src10 from "../../assets/icon-img/10.png";
+import src11 from "../../assets/icon-img/11.png";
+import src12 from "../../assets/icon-img/12.png";
+import src13 from "../../assets/icon-img/13.png";
+import src14 from "../../assets/icon-img/14.png";
+import src15 from "../../assets/icon-img/15.png";
+import src16 from "../../assets/icon-img/16.png";
+import src17 from "../../assets/icon-img/17.png";
+import src18 from "../../assets/icon-img/18.png";
+import src19 from "../../assets/icon-img/19.png";
+import src20 from "../../assets/icon-img/20.png";
 import { reqSwiper, reqProducts } from "../../api/product";
 export default {
   data() {
@@ -116,6 +176,48 @@ export default {
         {
           src: src10,
           title: "淘宝吃货",
+        },
+      ],
+      iconList1: [
+        {
+          src: src11,
+          title: "天猫超市",
+        },
+        {
+          src: src12,
+          title: "分类",
+        },
+        {
+          src: src13,
+          title: "天猫美食",
+        },
+        {
+          src: src14,
+          title: "阿里健康",
+        },
+        {
+          src: src15,
+          title: "口碑生活",
+        },
+        {
+          src: src16,
+          title: "淘宝吃货",
+        },
+        {
+          src: src17,
+          title: "闲鱼",
+        },
+        {
+          src: src18,
+          title: "会员中心",
+        },
+        {
+          src: src19,
+          title: "造点新货",
+        },
+        {
+          src: src20,
+          title: "土货鲜食",
         },
       ],
       value: "",
@@ -174,9 +276,14 @@ export default {
 .van-search__content {
   background-color: rgb(255, 78, 34);
 }
+.van-swipe-item {
+  background-color: #fff;
+  padding-top: 15px;
+}
 .my-swipe img {
-  width: 100%;
-  height: 150px;
+  width: 80%;
+  height: 180px;
+  margin-left: 10%;
 }
 .eyLbbH {
   display: flex;
@@ -197,27 +304,46 @@ export default {
   color: rgb(102, 102, 102);
   font-size: 11px;
 }
+.advertising1,
 .advertising {
   display: flex;
   width: 100%;
   overflow-x: auto;
   flex-wrap: wrap;
+  background-color: #fff;
+  border-radius: 10px 10px 0 0;
 }
+.advLast {
+  border-radius: 0 0 10px 10px;
+}
+.advertising {
+  margin-top: 10px;
+}
+.advertising1 li,
 .advertising li {
   width: 25%;
 }
 .advertising li:first-child p {
   line-height: 1px;
   font-weight: 800;
+  padding-left: 5px;
 }
 .advertising li:nth-child(2) {
   padding-top: 32px;
 }
+.advertising1 li:nth-child(4),
 .advertising li:nth-child(3) {
   padding-top: 10px;
 }
 .advertising li:nth-child(4) {
   padding-top: 25px;
+}
+.live img {
+  width: 161px;
+  height: 19px;
+  margin-left: 30%;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 .products {
   display: flex;
