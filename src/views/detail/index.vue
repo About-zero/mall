@@ -286,7 +286,8 @@ export default {
         let arr = [obj];
         const num = this.value;
         obj.quantity = num;
-        localStorage.setItem("productArr", arr);
+        let productStr = JSON.stringify(arr);
+        localStorage.setItem("productStr", productStr);
         // arr.push({product});
         console.log(arr);
         this.$router.push({ path: "/buy", query: { arr } });
