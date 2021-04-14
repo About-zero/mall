@@ -73,10 +73,13 @@ const router = new VueRouter({
                 {
                     path: 'twodetail',
                     name: 'Twodetail',
+                    // query: { id },
                     component: () =>
                         import ('../views/order/detail'),
                     meta: { isShowFooterTag: true }
                 },
+
+
             ]
         },
         {
@@ -86,6 +89,17 @@ const router = new VueRouter({
                 import ('../views/cart'),
             meta: { isShowFooterTag: true }
         },
+
+
+
+        {
+            path: "/buy",
+            name: "Buy",
+            component: () =>
+                import ("../views/buy"),
+            meta: { isShowFooterTag: true },
+        },
+
         {
             path: '/mine',
             name: 'Mine',
@@ -100,6 +114,18 @@ const router = new VueRouter({
                 import ('../views/address'),
             meta: { isShowFooterTag: false },
         },
+        {
+            path: "/editAddress/:id",
+            name: "EditAddress",
+            component: () => import("../views/editAddress"),
+            meta: { isShowFooterTag: true },
+          },
+          {
+            path: "/addressEdit",
+            name: "AddressEdit",
+            component: () => import("../views/addressEdit"),
+            meta: { isShowFooterTag: false },
+          },
         {
             path: '/detail/:id',
             name: 'Detail',

@@ -61,7 +61,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .van-button--normal {
   width: 50%;
 }
@@ -81,7 +81,7 @@ h1 {
   display: flex;
   flex-direction: column; /* 通过给父元素设置主轴方向，控制字元素的排列方式 */
   flex-wrap: wrap;
-  margin: 20px;
+  margin: 25px;
   /* width: 25%; */
   /* box-sizing: border-box; */
   text-align: center;

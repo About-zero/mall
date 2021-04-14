@@ -1,24 +1,26 @@
 <template>
   <div class="detail">
-    12111
-    <van-nav-bar
-      title="标题"
-      left-text="返回"
-      right-text="按钮"
-      left-arrow
-      @click-left="onClickLeft"
-      @click-right="onClickRight"
+    <van-nav-bar title="订单详情" left-arrow @click-left="onClickLeft" />
+    <van-card
+      num="2"
+      :price="detail.price"
+      desc="他们没有写的数据没有这个"
+      title="这个也没有"
+      thumb="https://img01.yzcdn.cn/vant/ipad.jpeg"
+      v-if="detail"
     />
   </div>
 </template>
 
 <script>
+import { orderDetail } from "../../../api/order";
 export default {
   data() {
     return {
       checked: true,
       value: "",
       ifor: [1, 2, 3, 4],
+      detail: null,
     };
   },
   components: {},
@@ -32,18 +34,28 @@ export default {
       });
     },
     onClickLeft() {
-      Toast(
-        this.$router.push({
-          path: `all`,
-        })
-      );
+      // Toast(Toast("返回"));
+      this.$router.push({
+        path: `all`,
+      });
+      // this.$route.params.id
+      // console.log();
+      // alert(this.$router.query.id)
     },
-    onClickRight() {
-      Toast("按钮");
+
+    async getDetail() {
+      const id = this.$route.query.id;
+      // alert(this.$route.query.id);
+      const res = await orderDetail(id);
+      this.detail = res.data.order;
+      console.log(this.detail);
     },
   },
+  created() {
+    this.getDetail();
+  },
 };
-import { Toast } from "vant";
+// import { Toast } from "vant";
 </script>
 
 

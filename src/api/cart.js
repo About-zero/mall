@@ -5,3 +5,5 @@ export const reqAddCart = (data) => post('/api/v1/shop_carts', data)
 export const reqCartDetail = () => get('/api/v1/shop_carts')
     // 删除购物车商品
 export const reqRemoveProduct = (id) => deleteProduct('/api/v1/shop_carts/' + id)
+//删除购物车多个商品
+export const reqRemoveProductMany = (ids) =>post('/api/v1/shop_carts/delmany',ids)

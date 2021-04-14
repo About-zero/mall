@@ -7,8 +7,8 @@
       @click-left="onClickLeft"
       @click-right="onClickRight"
       class="Van"
-      fixed="true"
-      placeholder="true"
+      :fixed="true"
+      :placeholder="true"
     />
     <van-swipe @change="onChange" class="custom-img">
       <van-swipe-item
@@ -93,7 +93,7 @@
           <van-goods-action-button
             type="danger"
             text="立即购买"
-            @click="nowBuy(obj._id)"
+            @click="nowBuy(obj)"
           />
         </div>
       </div>
@@ -166,7 +166,7 @@
       <van-goods-action-button
         type="danger"
         text="立即购买"
-        @click="nowBuy(obj._id)"
+        @click="nowBuy(obj)"
       />
     </van-goods-action>
   </div>
@@ -180,7 +180,6 @@ import { isLogined } from "../../utils/util";
 import { Toast } from "vant";
 Vue.use(Toast);
 import { ActionSheet } from "vant";
-
 Vue.use(ActionSheet);
 export default {
   component: {},
@@ -257,6 +256,7 @@ export default {
         this.$router.replace("/login");
       }
     },
+
     //下方购物车按钮事件
     star() {
       if (isLogined()) {
@@ -270,15 +270,28 @@ export default {
       }
     },
     //立即购买事件
-    nowBuy(id) {
-      if (isLogined) {
-        this.$router.push({
-          name: `Cart`,
-          query: { id },
-        });
-        console.log(111);
+
+    nowBuy(obj) {
+      // console.log(quantity,product,price);
+      // let arr = {quantity,product,price}
+      // console.log(arr);
+      // console.log(obj);
+      // let product = obj.coverImg;
+      if (isLogined()) {
+        obj.product = {
+          coverImg: obj.coverImg,
+          price: obj.price,
+        };
+        console.log(obj.product);
+        let arr = [obj];
+        const num = this.value;
+        obj.quantity = num;
+        localStorage.setItem("productArr", arr);
+        // arr.push({product});
+        console.log(arr);
+        this.$router.push({ path: "/buy", query: { arr } });
       } else {
-        this.$router.push("/login");
+        this.$router.replace("/login");
       }
     },
   },
