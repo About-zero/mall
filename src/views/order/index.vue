@@ -12,13 +12,22 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
   data() {
     return {
       active: 0,
     };
   },
+  methods: {
+    ...mapMutations({
+      changactive: "footer/changeActive",
+    }),
+  },
   components: {},
+  created() {
+    this.changactive(2);
+  },
 };
 </script>
 

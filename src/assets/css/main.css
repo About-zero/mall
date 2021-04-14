@@ -1,0 +1,24 @@
+.mine .cont1 .van-grid-item .van-grid-item__content {
+    color: rgb(223, 86, 37);
+  }
+  .mine .cont1 .van-grid .van-grid-item .van-grid-item__content .van-icon-logistics{
+    color: rgb(223, 86, 37);
+}
+.mine .head-bot .van-grid>.van-grid-item .van-grid-item__content .van-icon-gold-coin,.van-icon-cash-back-record{
+    color:red
+}
+.mine .head-bot .van-grid>.van-grid-item .van-grid-item__content .van-icon-point-gift,.van-icon-smile-o {
+    color:rgb(241, 212, 78)
+}
+.mine .head-bot .van-grid>.van-grid-item .van-grid-item__content .van-icon-alipay,.van-icon-logistics {
+    color:rgb(115, 212, 230)
+}
+.mine .head-bot .van-grid>.van-grid-item .van-grid-item__content .van-icon-comment {
+    color:rgb(92, 221, 59)
+}
+.mine .head-bot .van-grid>.van-grid-item .van-grid-item__content .van-icon-setting  {
+    /* color:rgb(162, 59, 221); */
+    background-image: -webkit-linear-gradient(bottom, rgb(201, 115, 255), rgb(20, 11, 255));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

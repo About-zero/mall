@@ -19,8 +19,13 @@
         <img :src="item.coverImg" alt />
       </van-swipe-item>
     </van-swipe>
-    
-    <van-swipe class="my-swipe" :autoplay="5000" indicator-color="white" :show-indicators="false">
+
+    <van-swipe
+      class="my-swipe"
+      :autoplay="5000"
+      indicator-color="white"
+      :show-indicators="false"
+    >
       <van-swipe-item>
         <ul class="eyLbbH">
           <li v-for="(item, index) in iconList" :key="index">
@@ -89,7 +94,12 @@
     <div class="live">
       <img src="../../assets/live.png" alt />
     </div>
-    <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+    <van-list
+      v-model="loading"
+      :finished="finished"
+      finished-text="没有更多了"
+      @load="onLoad"
+    >
       <ul class="products">
         <li v-for="item in list" :key="item._id" @click="godetail(item._id)">
           <img :src="item.coverImg" alt />
@@ -129,7 +139,7 @@ import src20 from "../../assets/icon-img/20.png";
 import { reqSwiper, reqProducts } from "../../api/product";
 import Vue from "vue";
 import { Icon } from "vant";
-
+import { mapMutations } from "vuex";
 Vue.use(Icon);
 export default {
   data() {
@@ -230,6 +240,9 @@ export default {
     };
   },
   methods: {
+    ...mapMutations({
+      changactive: "footer/changeActive",
+    }),
     async initSwiper() {
       const result = await reqSwiper();
       console.log(result);
@@ -275,6 +288,7 @@ export default {
   },
   created() {
     this.initSwiper();
+    this.changactive(0);
   },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);

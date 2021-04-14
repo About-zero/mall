@@ -17,15 +17,15 @@
               <span class="name">{{ nickName }}</span>
             </li>
           </ul>
-          <ul style="float:right">
+          <ul style="float: right">
             <li>
               <van-icon name="friends-o" size="30" color="wheat" />
             </li>
-            <li style="width:14px"></li>
+            <li style="width: 14px"></li>
             <li>
               <van-icon name="setting-o" size="30" color="wheat" />
             </li>
-            <li style="width:14px"></li>
+            <li style="width: 14px"></li>
           </ul>
         </div>
         <div class="top2">
@@ -63,33 +63,37 @@
                 icon="pending-payment"
                 to="/order/daifukuan"
                 badge="99+"
+                max="99"
                 text="待付款"
               />
               <van-grid-item
-                icon="send-gift-o"
+                icon="send-gift"
                 to="/order/daifahuo"
-                badge="99+"
+                badge="99"
+                max="99"
                 text="待发货"
               />
               <van-grid-item
                 icon="logistics"
                 to="/order/daishouhuo"
                 badge="99+"
+                max="99"
                 text="待收货"
               />
               <van-grid-item
-                icon="comment-o"
+                icon="comment"
                 to="/order/daipingjia"
-                badge="99+"
+                v-bind:badge="badge4"
+                max="99"
                 text="评价"
               />
-              <van-grid-item icon="balance-pay" badge="99+" text="退款/售后" />
+              <van-grid-item icon="balance-list" badge="99+" text="退款/售后" />
             </van-grid>
           </ul>
           <ul class="activity">
             <li class="act-top">
-              <span style="float:left">最新物流</span>
-              <span style="float:right">04-18</span>
+              <span style="float: left">最新物流</span>
+              <span style="float: right">04-18</span>
             </li>
             <li class="act-bot">
               <span class="img">
@@ -117,9 +121,9 @@
           <ul>
             <van-grid :border="false">
               <van-grid-item icon="gold-coin" text="每日返现" />
-              <van-grid-item icon="point-gift-o" text="领卷中心" />
+              <van-grid-item icon="point-gift" text="领卷中心" />
               <van-grid-item icon="cash-back-record" text="闲置换钱" />
-              <van-grid-item icon="service" text="客服人工" />
+              <van-grid-item icon="smile-o" text="客服小蜜" />
               <van-grid-item icon="alipay" text="花呗" />
               <van-grid-item
                 icon="logistics"
@@ -127,7 +131,7 @@
                 text="我的快递"
               />
               <van-grid-item
-                icon="chat"
+                icon="comment"
                 to="/order/daipingjia"
                 text="我的评价"
               />
@@ -144,6 +148,8 @@
 import { reqUsers } from "../../api/user";
 import { Dialog } from "vant";
 import { removeToken } from "../../utils/util";
+import { getOrderList } from "../../api/order";
+import { mapMutations } from "vuex";
 export default {
   //import引入的组件需要注入到对象中才能使用
   components: { [Dialog.Component.name]: Dialog.Component },
@@ -152,6 +158,7 @@ export default {
     return {
       username: "",
       nickName: "",
+      badge4: "",
     };
   },
   //监听属性 类似于data概念
@@ -160,6 +167,9 @@ export default {
   watch: {},
   //方法集
   methods: {
+    ...mapMutations({
+      changactive: "footer/changeActive",
+    }),
     async User() {
       const result = await reqUsers();
       console.log(result);
@@ -185,9 +195,23 @@ export default {
     },
     onClickLeft() {},
     onClickRight() {},
+    async num() {
+      const result = await getOrderList();
+      console.log(result);
+      if (result.status === 200) {
+        console.log(result.data.orders.length);
+        if (result.data.orders.length == 0) {
+          this.badge4 = "";
+        } else {
+          this.badge4 = result.data.orders.length;
+        }
+      }
+    },
   },
   created() {
     this.User();
+    this.num();
+    this.changactive(3);
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   mounted() {},
@@ -297,7 +321,7 @@ body {
 }
 .activity {
   overflow: hidden;
-  padding: 5px;
+  padding: 4px 5px 8px 5px;
   height: 62px;
   background-color: #f4f4f4a2;
   border-radius: 10px;
@@ -319,6 +343,7 @@ body {
 .activity .shop {
   float: left;
 }
+
 .activity .act-top {
   width: 309px;
   height: 20px;
@@ -329,12 +354,13 @@ body {
   height: 15px;
   font-size: 15px;
   color: blue;
-  margin: 0px 5px;
+  margin: 0px 8px;
+  margin-top: -5px;
 }
 .activity .act-bot p:nth-child(2) {
   height: 14px;
   font-size: 14px;
-  margin: 2px 5px;
+  margin: 6px 8px;
 }
 .head-bot {
   margin-bottom: 2rem;
