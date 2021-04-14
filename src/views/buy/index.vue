@@ -137,7 +137,7 @@ __proto__: Object
       console.log(res);
       Toast.success("订单生成成功");
       this.$router.push({
-        path: `/cart`,
+        path: `/order`,
       });
     }, 
   },
