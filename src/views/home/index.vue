@@ -103,10 +103,14 @@
         <li v-for="item in list" :key="item._id" @click="godetail(item._id)">
           <img :src="item.coverImg" alt="" />
           <p>{{ item.name }}</p>
-          <p>{{ item.price }}元</p>
+          <span>￥ {{ item.price }}元 <i>66人购买</i></span>
         </li>
       </ul>
     </van-list>
+    <div class="top" v-show="flag_scroll" @click="backTop">
+      <van-icon name="arrow-up" size="25" color="#333" />
+      <p>顶部</p>
+    </div>
   </div>
 </template>
 
@@ -132,6 +136,10 @@ import src18 from "../../assets/icon-img/18.png";
 import src19 from "../../assets/icon-img/19.png";
 import src20 from "../../assets/icon-img/20.png";
 import { reqSwiper, reqProducts } from "../../api/product";
+import Vue from "vue";
+import { Icon } from "vant";
+
+Vue.use(Icon);
 export default {
   data() {
     return {
@@ -226,6 +234,8 @@ export default {
       loading: false,
       finished: false,
       page: 1,
+      flag_scroll: false,
+      scroll: 0,
     };
   },
   methods: {
@@ -255,9 +265,28 @@ export default {
         query: { id },
       });
     },
+    //返回顶部
+
+    backTop() {
+      document.documentElement.scrollTop = 0;
+    },
+
+    //滑动超过200时显示按钮
+    handleScroll() {
+      let scrollTop = document.documentElement.scrollTop;
+      //console.log(document.documentElement.scrollTop);
+      if (scrollTop > 200) {
+        this.flag_scroll = true;
+      } else {
+        this.flag_scroll = false;
+      }
+    },
   },
   created() {
     this.initSwiper();
+  },
+  mounted() {
+    window.addEventListener("scroll", this.handleScroll);
   },
 };
 </script>
@@ -265,6 +294,7 @@ export default {
 <style>
 .home {
   padding-bottom: 50px;
+  position: relative;
 }
 .header {
   background-color: rgb(255, 133, 42);
@@ -343,26 +373,69 @@ export default {
   height: 19px;
   margin-left: 30%;
   margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 .products {
   display: flex;
-  width: 100%;
+  width: 98%;
   overflow-x: auto;
   flex-wrap: wrap;
+  margin-left: 2%;
 }
 .products li {
   width: 45%;
   margin: 0 5px;
+  background-color: #fff;
+  margin-top: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  padding-bottom: 10px;
 }
 .products li img {
   width: 171px;
   height: 171px;
+  margin-top: 10px;
 }
-.products li p:nth-child(3) {
-  color: red;
+.products li p,
+.products li span {
+  margin-left: 15px;
+}
+.products li span:nth-child(3) {
+  font-size: 14px;
+  line-height: 16.000000000000004px;
+  color: #ff5500;
+}
+.products li span:nth-child(3) i {
+  color: #ccc;
+  font-size: 10px;
+  line-height: 16.000000000000004px;
+  font-style: normal;
 }
 .products li p:nth-child(2) {
   font-size: 11px;
+  color: #333;
+  line-height: 18.5px;
+  width: 140px; /*限制元素宽度*/
+  overflow: hidden; /*文本超出隐藏*/
+  display: -webkit-box; /*盒子模型微弹性伸缩模型*/
+  -webkit-box-orient: vertical; /*伸缩盒子的子元素垂直排列*/
+  -webkit-line-clamp: 2; /*文本显示3行*/
+}
+.top {
+  width: 42px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  padding-left: 16px;
+  position: fixed;
+  bottom: 100px;
+  right: 10px;
+  background-color: #fff;
+}
+.top p {
+  line-height: 1;
+  margin: 0;
+  font-size: 14px;
+  color: #ccc;
 }
 </style>
