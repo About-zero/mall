@@ -24,18 +24,18 @@
         <van-button size="mini">再次充值</van-button>
       </template>
     </van-card>-->
-    <div class="orderCenter" v-for="(v,i) in ifor" :key="i">
+    <div class="orderCenter" v-for="v in objLists" :key="v._id">
       <ul class="orderAllul">
         <li>
           <span class="orderLeft10">充值中心</span>
           <span class="orderRight11">充值成功</span>
         </li>
         <li>
-          <img src="https://img.alicdn.com/tfs/TB1.2hkSFXXXXblapXXXXXXXXXX-184-184.png_200x200" alt />
+          <img @click="goDetail(v._id)" src="https://img01.yzcdn.cn/vant/ipad.jpeg" alt />
           <div class="orderLeft23">
             <div class="orderRight20">
               <span>话费充值-河南联通</span>
-              <span class="span1">9.97</span>
+              <span class="span1">{{v.price}}</span>
             </div>
             <div class="orderRight20 fontcolor">
               <span>充值号码:17634430748</span>
@@ -44,11 +44,11 @@
           </div>
         </li>
         <li class="ordeRight30">
-          <span class="fontcolor">总价￥10.00</span>
-          <span>实付款￥10.00</span>
+          <span class="fontcolor">总价￥{{v.price}}</span>
+          <span>实付款￥{{v.price}}</span>
         </li>
         <li class="buttons">
-          <van-button round type="primary" size="small">删出订单</van-button>
+          <van-button round type="primary" size="small" @click="delOrder(v._id)">删出订单</van-button>
           <van-button round type="primary" size="small">查询余额</van-button>
           <van-button round type="primary" size="small">再次充值</van-button>
         </li>
@@ -58,26 +58,35 @@
 </template>
 
 <script>
-import { getOrderList } from "../../../api/order";
+import { getOrderList, deleteOrder } from "../../../api/order";
 export default {
   data() {
     return {
       checked: true,
       value: "",
       ifor: [1, 2, 3],
+      objLists: null,
     };
   },
   components: {},
   methods: {
     onSearch() {},
-    goDetail() {
+    goDetail(id) {
       this.$router.push({
         path: `twodetail`,
+        query: { id },
       });
     },
     async orderLists() {
       const result = await getOrderList();
       console.log(result);
+      this.objLists = result.data.orders;
+      console.log(this.objLists);
+    },
+    async delOrder(id) {
+      const result = await deleteOrder(id);
+      console.log(result);
+      this.orderLists();
     },
   },
   created() {
@@ -87,8 +96,11 @@ export default {
 </script>
 
 <style>
+.all {
+  padding-bottom: 80px;
+}
 .search {
-  background: #ff5000;
+  /* background: #ff5000; */
   width: 75px;
   color: #ffffff;
   font-size: 14px;
@@ -97,12 +109,16 @@ export default {
   margin-left: 12px;
   box-sizing: border-box;
   border-radius: 15px;
+  background-color: red;
 }
 .orderLeft10 {
   float: left;
+  font-size: 12px;
 }
 .orderRight11 {
+  color: orangered;
   float: right;
+  font-size: 12px;
 }
 .orderAllul li {
   overflow: hidden;
@@ -141,5 +157,9 @@ img {
 }
 .orderCenter {
   overflow: hidden;
+  background-color: #fff;
+  margin: 10px 0;
+  border-radius: 20px;
+  padding: 20px;
 }
 </style>
