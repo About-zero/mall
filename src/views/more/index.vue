@@ -5,15 +5,21 @@
     <!-- <van-button type="info">功能服务</van-button> -->
     <h1>特色市场</h1>
     <div class="moreMenu">
-      <div v-for="(v,i) in ifor" :key="i" class="moreMenuDiv">
-        <img src="https://gw.alicdn.com/tps/i1/TB1EJmgKVXXXXXOXFXXazxJIVXX-144-144.png" alt />
+      <div v-for="(v, i) in ifor" :key="i" class="moreMenuDiv">
+        <img
+          src="https://gw.alicdn.com/tps/i1/TB1EJmgKVXXXXXOXFXXazxJIVXX-144-144.png"
+          alt
+        />
         <span>腔调</span>
       </div>
     </div>
     <h1>主题市场</h1>
     <div class="moreMenu">
-      <div v-for="(v,i) in ifor2" :key="i" class="moreMenuDiv">
-        <img src="https://gw.alicdn.com/tps/i1/TB1EJmgKVXXXXXOXFXXazxJIVXX-144-144.png" alt />
+      <div v-for="(v, i) in ifor2" :key="i" class="moreMenuDiv">
+        <img
+          src="https://gw.alicdn.com/tps/i1/TB1EJmgKVXXXXXOXFXXazxJIVXX-144-144.png"
+          alt
+        />
         <span>腔调</span>
       </div>
     </div>
@@ -21,6 +27,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -57,7 +64,15 @@ export default {
       ifor2: [1, 2, 3, 4, 5],
     };
   },
+  methods: {
+    ...mapMutations({
+      changactive: "footer/changeActive",
+    }),
+  },
   components: {},
+  created() {
+    this.changactive(4);
+  },
 };
 </script>
 
@@ -81,7 +96,7 @@ h1 {
   display: flex;
   flex-direction: column; /* 通过给父元素设置主轴方向，控制字元素的排列方式 */
   flex-wrap: wrap;
-  margin: 20px;
+  margin: 25px;
   /* width: 25%; */
   /* box-sizing: border-box; */
   text-align: center;

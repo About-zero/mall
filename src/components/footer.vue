@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <van-tabbar v-model="active">
+    <van-tabbar v-model="$store.state.footer.active">
       <van-tabbar-item icon="home-o" :to="{ name: 'Home' }"
         >首页</van-tabbar-item
       >
@@ -22,6 +22,7 @@
 
 <script>
 import Vue from "vue";
+import { mapMutations } from "vuex";
 import { Tabbar, TabbarItem } from "vant";
 Vue.use(Tabbar);
 Vue.use(TabbarItem);
@@ -31,7 +32,16 @@ export default {
       active: 0,
     };
   },
+  methods: {
+    ...mapMutations({
+      changeactive: "footer/changeActive",
+    }),
+  },
+  created() {
+    console.log(this.$store.state.footer.active);
+  },
 };
 </script>
 
-<style></style>
+<style>
+</style>

@@ -17,15 +17,15 @@
               <span class="name">{{ nickName }}</span>
             </li>
           </ul>
-          <ul style="float:right">
+          <ul style="float: right">
             <li>
               <van-icon name="friends-o" size="30" color="wheat" />
             </li>
-            <li style="width:14px"></li>
+            <li style="width: 14px"></li>
             <li>
               <van-icon name="setting-o" size="30" color="wheat" />
             </li>
-            <li style="width:14px"></li>
+            <li style="width: 14px"></li>
           </ul>
         </div>
         <div class="top2">
@@ -92,8 +92,8 @@
           </ul>
           <ul class="activity">
             <li class="act-top">
-              <span style="float:left">最新物流</span>
-              <span style="float:right">04-18</span>
+              <span style="float: left">最新物流</span>
+              <span style="float: right">04-18</span>
             </li>
             <li class="act-bot">
               <span class="img">
@@ -149,6 +149,7 @@ import { reqUsers } from "../../api/user";
 import { Dialog } from "vant";
 import { removeToken } from "../../utils/util";
 import { getOrderList } from "../../api/order";
+import { mapMutations } from "vuex";
 export default {
   //import引入的组件需要注入到对象中才能使用
   components: { [Dialog.Component.name]: Dialog.Component },
@@ -166,6 +167,9 @@ export default {
   watch: {},
   //方法集
   methods: {
+    ...mapMutations({
+      changactive: "footer/changeActive",
+    }),
     async User() {
       const result = await reqUsers();
       console.log(result);
@@ -207,6 +211,7 @@ export default {
   created() {
     this.User();
     this.num();
+    this.changactive(3);
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   mounted() {},

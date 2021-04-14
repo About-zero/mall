@@ -4,13 +4,15 @@
     <div class="head gradient">
       <div class="text clear">
         <div class="left">
-          购物车(<span>{{ sumnum }}</span
+          购物车(
+          <span>{{ sumnum }}</span
           >)
         </div>
-        <div class="right">管理</div>
+        <div class="right" @click="manage()">{{ a }}</div>
       </div>
       <p class="total">
-        共<span>{{ sumnum }}</span
+        共
+        <span>{{ sumnum }}</span
         >件宝贝
       </p>
     </div>
@@ -20,7 +22,7 @@
         <div class="sp">
           <van-checkbox v-model="item.checked" class="checkbox">
             <div class="picwrap">
-              <img :src="item.product.coverImg" alt="" />
+              <img :src="item.product.coverImg" alt />
             </div>
           </van-checkbox>
           <div class="detailwrap">
@@ -40,17 +42,33 @@
       </div>
     </div>
     <van-submit-bar
+      v-if="flag"
       :price="sumPrice * 100"
       button-text="结算"
       @submit="onSubmit"
     >
       <van-checkbox v-model="checked">全选</van-checkbox>
     </van-submit-bar>
+    <van-submit-bar v-else button-text="删除" @submit="onDelete">
+      <van-checkbox class="allselect" v-model="checked">全选</van-checkbox>
+    </van-submit-bar>
+    <!-- <van-cell is-link @click="showPopup">展示弹出层</van-cell> -->
+    <!-- <van-popup v-model="show">内容</van-popup> -->
   </div>
 </template>
 
 <script>
+import Vue from "vue";
+import { Toast } from "vant";
+
+import { mapMutations } from "vuex";
+
+Vue.use(Toast);
 import { reqCartDetail } from "../../api/cart";
+import { reqRemoveProductMany } from "../../api/cart";
+import { Dialog } from "vant";
+
+// Dialog({ message: '提示' });
 // import {reqAddCart} from "../../api/cart"
 // import {reqRemoveProduct} from "../../api/cart"
 export default {
@@ -59,6 +77,9 @@ export default {
     return {
       // flag:false,
       goodslist: [],
+      a: "管理",
+      flag: true,
+      show: false,
     };
   },
   //监听属性 类似于data概念
@@ -68,6 +89,7 @@ export default {
         return pre + cur.quantity;
       }, 0);
     },
+
     checked: {
       set(flag) {
         return this.goodslist.forEach((item) => (item.checked = flag));
@@ -89,10 +111,12 @@ export default {
         }, 0);
     },
   },
-  //监控data中的数据变化
-  watch: {},
 
   methods: {
+    ...mapMutations({
+      changactive: "footer/changeActive",
+    }),
+
     async initCartList() {
       let res = await reqCartDetail();
       console.log(res);
@@ -101,8 +125,36 @@ export default {
     },
     onSubmit() {
       let arr = this.goodslist.filter((item) => item.checked == true);
-      // console.log(arr);
-      this.$router.push({ path: "/buy", query: { arr } });
+      console.log(arr);
+      if (arr.length != 0) {
+        this.$router.push({ path: "/buy", query: { arr } });
+      } else {
+        Toast("您还没有选择宝贝哦~");
+      }
+    },
+    onDelete() {
+      Dialog.confirm({
+        title: "确认将这一个宝贝删除？",
+        message: "确认删除吗",
+      })
+        .then(async () => {
+          // on confirm
+          let arr = this.goodslist.filter((item) => item.checked == true);
+          console.log(arr);
+          let idArr = [];
+          arr.forEach((v) => {
+            idArr.push(v._id);
+          });
+          console.log(idArr);
+          let res = await reqRemoveProductMany({ ids: idArr });
+          console.log(res);
+          if (res.status == 200) {
+            this.initCartList();
+          }
+        })
+        .catch(() => {
+          // on cancel
+        });
     },
     sub(index) {
       this.goodslist[index].quantity -= 1;
@@ -122,10 +174,16 @@ export default {
       // console.log(res);
       // this.initCartList()
     },
+    manage() {
+      this.flag = !this.flag;
+      this.a = this.flag ? "管理" : "完成";
+    },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
     this.initCartList();
+    this.changactive(1);
+    console.log(this.$store.state.footer.active);
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
@@ -281,5 +339,8 @@ html body {
 .price span {
   font-size: 1px;
   color: tomato;
+}
+.van-submit-bar__bar {
+  justify-content: space-around;
 }
 </style>
