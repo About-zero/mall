@@ -3,7 +3,7 @@
     <van-row class="header">
       <van-col span="4">
         <!-- <img :src="logoImg" alt="" /> -->
-        <img src="../../assets/logo.png" alt="" />
+        <img src="../../assets/logo.png" alt />
       </van-col>
       <van-col span="20">
         <van-search
@@ -16,20 +16,23 @@
     </van-row>
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
       <van-swipe-item v-for="item in swiperList" :key="item._id">
-        <img :src="item.coverImg" alt="" />
+        <img :src="item.coverImg" alt />
       </van-swipe-item>
     </van-swipe>
-    <van-swipe
-      class="my-swipe"
-      :autoplay="5000"
-      indicator-color="white"
-      :show-indicators="false"
-    >
+    <ul class="eyLbbH">
+      <li v-for="(item, index) in iconList" :key="index">
+        <a href="javascript:;">
+          <img :src="item.src" alt />
+          <p>{{ item.title }}</p>
+        </a>
+      </li>
+    </ul>
+    <van-swipe class="my-swipe" :autoplay="5000" indicator-color="white" :show-indicators="false">
       <van-swipe-item>
         <ul class="eyLbbH">
           <li v-for="(item, index) in iconList" :key="index">
             <a href="javascript:;">
-              <img :src="item.src" alt="" />
+              <img :src="item.src" alt />
               <p>{{ item.title }}</p>
             </a>
           </li>
@@ -39,7 +42,7 @@
         <ul class="eyLbbH">
           <li v-for="(item, index) in iconList1" :key="index">
             <a href="javascript:;">
-              <img :src="item.src" alt="" />
+              <img :src="item.src" alt />
               <p>{{ item.title }}</p>
             </a>
           </li>
@@ -50,58 +53,53 @@
     <ul class="advertising">
       <li>
         <p>聚划算</p>
-        <img src="../../assets/avter1.png" alt="" />
+        <img src="../../assets/avter1.png" alt />
       </li>
       <li>
-        <img src="../../assets/avter2.png" alt="" />
+        <img src="../../assets/avter2.png" alt />
       </li>
       <li>
-        <img src="../../assets/avter3.png" alt="" />
+        <img src="../../assets/avter3.png" alt />
       </li>
       <li>
-        <img src="../../assets/avter4.png" alt="" />
+        <img src="../../assets/avter4.png" alt />
       </li>
     </ul>
     <ul class="advertising1">
       <li>
-        <img src="../../assets/avter5.png" alt="" />
+        <img src="../../assets/avter5.png" alt />
       </li>
       <li>
-        <img src="../../assets/avter6.png" alt="" />
+        <img src="../../assets/avter6.png" alt />
       </li>
       <li>
-        <img src="../../assets/avter7.png" alt="" />
+        <img src="../../assets/avter7.png" alt />
       </li>
       <li>
-        <img src="../../assets/avter3.png" alt="" />
+        <img src="../../assets/avter3.png" alt />
       </li>
     </ul>
     <ul class="advertising1 advLast">
       <li>
-        <img src="../../assets/avter5.png" alt="" />
+        <img src="../../assets/avter5.png" alt />
       </li>
       <li>
-        <img src="../../assets/avter6.png" alt="" />
+        <img src="../../assets/avter6.png" alt />
       </li>
       <li>
-        <img src="../../assets/avter7.png" alt="" />
+        <img src="../../assets/avter7.png" alt />
       </li>
       <li>
-        <img src="../../assets/avter3.png" alt="" />
+        <img src="../../assets/avter3.png" alt />
       </li>
     </ul>
     <div class="live">
-      <img src="../../assets/live.png" alt="" />
+      <img src="../../assets/live.png" alt />
     </div>
-    <van-list
-      v-model="loading"
-      :finished="finished"
-      finished-text="没有更多了"
-      @load="onLoad"
-    >
+    <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
       <ul class="products">
         <li v-for="item in list" :key="item._id" @click="godetail(item._id)">
-          <img :src="item.coverImg" alt="" />
+          <img :src="item.coverImg" alt />
           <p>{{ item.name }}</p>
           <span>￥ {{ item.price }}元 <i>66人购买</i></span>
         </li>
