@@ -86,6 +86,16 @@ const router = new VueRouter({
                 import ('../views/cart'),
             meta: { isShowFooterTag: true }
         },
+
+      
+    
+    {
+      path: "/buy",
+      name: "Buy",
+      component: () => import("../views/buy"),
+      meta: { isShowFooterTag: true },
+    },
+
         {
             path: '/mine',
             name: 'Mine',
