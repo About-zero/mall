@@ -115,6 +115,18 @@ const router = new VueRouter({
             meta: { isShowFooterTag: false },
         },
         {
+            path: "/editAddress/:id",
+            name: "EditAddress",
+            component: () => import("../views/editAddress"),
+            meta: { isShowFooterTag: true },
+          },
+          {
+            path: "/addressEdit",
+            name: "AddressEdit",
+            component: () => import("../views/addressEdit"),
+            meta: { isShowFooterTag: false },
+          },
+        {
             path: '/detail/:id',
             name: 'Detail',
             component: () =>

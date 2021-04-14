@@ -7,8 +7,8 @@
       @click-left="onClickLeft"
       @click-right="onClickRight"
       class="Van"
-      fixed="true"
-      placeholder="true"
+      :fixed="true"
+      :placeholder="true"
     />
     <van-swipe @change="onChange" class="custom-img">
       <van-swipe-item
@@ -124,7 +124,6 @@ import { isLogined } from "../../utils/util";
 import { Toast } from "vant";
 Vue.use(Toast);
 import { ActionSheet } from "vant";
-
 Vue.use(ActionSheet);
 export default {
   components: {},
@@ -184,14 +183,21 @@ export default {
       // console.log(arr);
       // console.log(obj);
       // let product = obj.coverImg;
-      obj.product = {
-        coverImg:obj.coverImg,
-        price:obj.price
-        }
-      let arr = [obj];
-      obj.quantity = 1;
-      // arr.push({product});
-      this.$router.push({path:'/buy',query:{arr}})
+      if(isLogined()){
+        obj.product = {
+          coverImg:obj.coverImg,
+          price:obj.price
+          }
+        let arr = [obj];
+        obj.quantity = 1;
+        localStorage.setItem('productArr',arr)
+        // arr.push({product});
+        console.log(arr);
+        this.$router.push({path:'/buy',query:{arr}})
+      }else{
+        this.$router.replace("/login");
+      }
+     
 
     },
   },

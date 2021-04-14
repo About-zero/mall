@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <div class="buy">
-    <van-address-list v-model="chosenAddressId" :list="list" default-tag-text="默认" />
+    <van-address-list v-model="chosenAddressId" :list="list" default-tag-text="默认" @click-item="a"/>
     <div class="buylist">
       <div class="page-content">
         <div class="shop" v-for="(item) in buylist" :key="item._id">
@@ -57,9 +57,10 @@ export default {
           id: "1",
           name: "张三",
           tel: "13000000000",
+          regions:'浙江省',
           address: "浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室",
           isDefault: true,
-        },]
+        }]
         };
     },
     //监听属性 类似于data概念
@@ -75,6 +76,10 @@ export default {
     watch: {},
     
     methods: {
+      a(item,index){
+      console.log(item,index);
+      this.$router.push('/address')
+      },
         initbuy(){
             console.log((this.$route.query.arr));
             this.buylist = this.$route.query.arr;
@@ -92,10 +97,11 @@ export default {
            
         },
      async onSubmit() {
+       console.log(this.list[0]);
       let objdata = {
-        receiver: "lxy",
-        regions: "zz",
-        address: "henan",
+        receiver: this.list[0].name,
+        regions: this.list[0].regions,
+        address: this.list[0].address,
         orderDetails: this.buyarr,
       };
       let res = await reqSubmitOrder(objdata);
@@ -111,6 +117,7 @@ export default {
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
     this.initbuy();
+    console.log(this.$route.query.id);
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},

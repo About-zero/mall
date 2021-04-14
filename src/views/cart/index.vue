@@ -51,6 +51,10 @@
 </template>
 
 <script>
+import Vue from 'vue';
+import { Toast } from 'vant';
+
+Vue.use(Toast);
 import { reqCartDetail } from "../../api/cart";
 import { reqRemoveProductMany } from "../../api/cart";
 import { Dialog } from "vant";
@@ -108,7 +112,12 @@ export default {
     onSubmit() {
       let arr = this.goodslist.filter((item) => item.checked == true);
       console.log(arr);
-      this.$router.push({ path: "/buy", query: { arr } });
+      if(arr.length!=0){
+        this.$router.push({ path: "/buy", query: { arr } });
+      }else{
+        Toast('您还没有选择宝贝哦~');
+      }
+      
     },
     onDelete() {
       Dialog.confirm({
