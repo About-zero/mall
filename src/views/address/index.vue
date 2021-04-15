@@ -31,7 +31,7 @@ export default {
     //这里存放数据
     return {
       chosenAddressId: "1",
-     
+
       list: [
         // {
         //   id: "1",
@@ -74,8 +74,23 @@ export default {
       });
       console.log(arr);
       if (res.status == 200) {
-        this.list = arr;
+        if (arr[0].isDefault) {
+          for (var i = 1; i < arr.length; i++) {
+            arr[i].isDefault = false;
+          }
+          this.list = arr;
+        } else {
+          for (var j = 1; j < arr.length; j++) {
+            if (arr[j].isDefault) {
+              for (var a = j + 1; a < arr.length; a++) {
+                arr[a].isDefault = false;
+              }
+            }
+          }
+          this.list = arr;
+        }
       }
+
       console.log(this.list, 666666666666666);
     },
 
@@ -101,7 +116,7 @@ export default {
         query: { id },
       });
     },
-    
+
     chooseAddress(item, index) {
       console.log(item, index);
       localStorage.setItem("addressId", item.id);
@@ -111,8 +126,7 @@ export default {
       // console.log(arr);
       // this.$router.push({path:'/buy',query:{arr}})
       let num = localStorage.getItem("num");
-      if(num == 2)
-      this.$router.push("/buy");
+      if (num == 2) this.$router.push("/buy");
     },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
