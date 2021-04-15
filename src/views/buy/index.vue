@@ -29,6 +29,22 @@
               <span>快递 免邮</span>
               <span>></span>
             </p>
+            <p class="ps2">
+              <span>运费险</span>
+              <span>卖家赠送，退换货可赔</span>
+              <span></span>
+              <span>></span>
+            </p>
+            <p class="ps1 ps3">
+              <span>开具发票</span>
+              <span></span>
+              <span>本次不开具发票</span>
+              <span>></span>
+            </p>
+            <p class="ps1 ps4">
+              <span>订单备注</span>
+              <span>选填，请先和商家协商一致</span>
+            </p>
           </div>
         </div>
       </div>
@@ -78,7 +94,8 @@ export default {
     methods: {
       a(item,index){
           console.log(item,index);
-          this.$router.push({path:'/address',query:{a:2}})
+          this.$router.push({path:'/address'})
+          localStorage.setItem("num",2)
       },
        async initbuy(){
         
@@ -234,15 +251,25 @@ __proto__: Object
 .detail p {
   font-size: 1px;
 }
-.ps1 {
-  font-size: 10px;
+.ps1,.ps2 {
+  font-size: 12px;
 }
-.ps1 span:nth-of-type(2),
+.ps1 span:nth-of-type(2),.ps2 span:nth-of-type(2),
 .ps1 span:nth-of-type(4) {
   color: #bbb;
   margin-left: 10px;
 }
+.ps2 span:nth-of-type(2){
+  margin-left: 21px;
+}
+.ps2 span:nth-of-type(4){
+  color: #bbb;
+  margin-left: 107px;
+}
 .ps1 span:nth-of-type(3) {
   margin-left: 117px;
+}
+.ps3 span:nth-of-type(3) {
+  margin-left: 131px;
 }
 </style>

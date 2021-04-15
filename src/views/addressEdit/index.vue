@@ -52,7 +52,8 @@ export default {
   //方法集合
   methods: {
     onClickLeft() {
-      this.$router.push("/address");
+      // this.$router.push("/address");
+       history.back(-1);
     },
     async onSave(content) {
       // console.log(content.id);

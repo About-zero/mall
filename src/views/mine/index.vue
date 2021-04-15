@@ -168,7 +168,8 @@ export default {
   //方法集
   methods: {
     goAddress(){
-      this.$router.push({path:'/address',query:{a:1}});
+      this.$router.push({path:'/address'});
+      localStorage.setItem("num",1)
     },
     ...mapMutations({
       changactive: "footer/changeActive",

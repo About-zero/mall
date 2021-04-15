@@ -31,7 +31,7 @@ export default {
     //这里存放数据
     return {
       chosenAddressId: "1",
-      num:2,
+     
       list: [
         // {
         //   id: "1",
@@ -88,7 +88,7 @@ export default {
     // },
     onClickLeft() {
       // this.$router.push("/mine");
-      history.go(-1);
+      history.back(-1);
     },
     onEdit(value) {
       console.log(value);
@@ -110,7 +110,8 @@ export default {
       // let arr = JSON.parse(str);
       // console.log(arr);
       // this.$router.push({path:'/buy',query:{arr}})
-      if(this.num == 2)
+      let num = localStorage.getItem("num");
+      if(num == 2)
       this.$router.push("/buy");
     },
   },
@@ -119,7 +120,8 @@ export default {
     // this.list = JSON.parse(localStorage.getItem("address"));
     this.init();
     // alert(this.$route.query.a);
-    this.num = this.$route.query.a;
+    // this.num = this.$route.query.a;
+    // localStorage.setItem("num",this.$route.query.a)
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
