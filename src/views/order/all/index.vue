@@ -128,6 +128,9 @@ export default {
   border-radius: 15px;
   background-color: red;
 }
+.van-search__content {
+  background-color: #fff !important;
+}
 .orderLeft10 {
   float: left;
   font-size: 12px;

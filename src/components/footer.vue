@@ -4,16 +4,16 @@
       <van-tabbar-item icon="home-o" :to="{ name: 'Home' }"
         >首页</van-tabbar-item
       >
-      <van-tabbar-item icon="search" :to="{ name: 'Cart' }"
+      <van-tabbar-item icon="shopping-cart-o" :to="{ name: 'Cart' }"
         >购物车</van-tabbar-item
       >
-      <van-tabbar-item icon="friends-o" :to="{ name: 'Order' }"
+      <van-tabbar-item icon="label-o" :to="{ name: 'Order' }"
         >订单列表</van-tabbar-item
       >
-      <van-tabbar-item icon="setting-o" :to="{ name: 'Mine' }"
+      <van-tabbar-item icon="user-o" :to="{ name: 'Mine' }"
         >我的淘宝</van-tabbar-item
       >
-      <van-tabbar-item icon="setting-o" :to="{ name: 'More' }"
+      <van-tabbar-item icon="ellipsis" :to="{ name: 'More' }"
         >更多</van-tabbar-item
       >
     </van-tabbar>
