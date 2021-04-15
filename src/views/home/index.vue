@@ -109,7 +109,7 @@
       </ul>
     </van-list>
     <div class="top" v-show="flag_scroll" @click="backTop">
-      <van-icon name="arrow-up" size="25" color="#333" />
+      <van-icon name="back-top" size="28" color="#ccc" />
       <p>顶部</p>
     </div>
   </div>
@@ -305,6 +305,7 @@ export default {
   background-color: rgb(255, 133, 42);
 }
 .van-col img {
+  width: 49px;
   height: 37px;
   margin: 7px 14px;
 }

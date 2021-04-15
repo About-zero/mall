@@ -36,7 +36,7 @@
           <span class="orderLeft10">充值中心</span>
           <span class="orderRight11">充值成功</span>
         </li>
-        <li>
+        <li class="orderPro">
           <img
             @click="goDetail(v._id)"
             src="https://img01.yzcdn.cn/vant/ipad.jpeg"
@@ -128,6 +128,9 @@ export default {
   border-radius: 15px;
   background-color: red;
 }
+.van-search__content {
+  background-color: #fff !important;
+}
 .orderLeft10 {
   float: left;
   font-size: 12px;
@@ -141,7 +144,7 @@ export default {
   overflow: hidden;
   margin: 10px;
 }
-img {
+.orderPro img {
   width: 90px;
   float: left;
 }

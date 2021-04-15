@@ -1,7 +1,7 @@
 <template>
   <div class="more">
-    <van-button type="primary" color="#bbb">特色导购</van-button>
-    <van-button type="primary" color="pink">功能服务</van-button>
+    <van-button type="primary" color="red">特色导购</van-button>
+    <van-button type="primary" color="green">功能服务</van-button>
     <!-- <van-button type="info">功能服务</van-button> -->
     <h1>特色市场</h1>
     <div class="moreMenu">
@@ -76,7 +76,11 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+.more {
+  background-color: #fff;
+  padding: 10px;
+}
 .van-button--normal {
   width: 50%;
 }
@@ -91,13 +95,13 @@ h1 {
   font-size: 14px;
 }
 .moreMenuDiv {
-  color: #5f646e;
+  /* color: #5f646e; */
   font-size: 12px;
   display: flex;
-  flex-direction: column; /* 通过给父元素设置主轴方向，控制字元素的排列方式 */
+  flex-direction: column;
+  /* 通过给父元素设置主轴方向，控制字元素的排列方式 */
   flex-wrap: wrap;
-  margin: 25px;
-  /* width: 25%; */
+  width: 25%;
   /* box-sizing: border-box; */
   text-align: center;
 }
@@ -107,10 +111,14 @@ h1 {
   border: 1px solid #ccc;
   flex-wrap: wrap;
   /* 设置子元素是否换行 */
+  margin: 10px 20px;
+  padding: 10px;
 }
 
-img {
+.moreMenuDiv img {
   width: 47px;
+  margin-top: 10px;
   margin-bottom: 10px;
+  margin-left: 15px;
 }
 </style>
