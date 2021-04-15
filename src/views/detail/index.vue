@@ -290,7 +290,8 @@ export default {
         localStorage.setItem("productStr", productStr);
         // arr.push({product});
         console.log(arr);
-        this.$router.push({ path: "/buy", query: { arr } });
+        // this.$router.push({ path: "/buy", query: { arr } });
+        this.$router.push('/buy')
       } else {
         this.$router.replace("/login");
       }

@@ -103,12 +103,12 @@ export default {
     chooseAddress(item,index){
       console.log(item,index);
       localStorage.setItem('addressId',item.id)
-      const str =localStorage.getItem('productStr')
+      // const str =localStorage.getItem('productStr')
+
+      // let arr = JSON.parse(str);
+      // console.log(arr);
       // this.$router.push({path:'/buy',query:{arr}})
-      let arr = JSON.parse(str);
-      console.log(arr);
-      this.$router.push({path:'/buy',query:{arr}})
-      // this.$router.push('/buy')
+      this.$router.push('/buy')
     }
   },
   //生命周期 - 创建完成（可以访问当前this实例）

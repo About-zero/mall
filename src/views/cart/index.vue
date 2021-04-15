@@ -127,7 +127,10 @@ export default {
       let arr = this.goodslist.filter((item) => item.checked == true);
       console.log(arr);
       if (arr.length != 0) {
-        this.$router.push({ path: "/buy", query: { arr } });
+        let productStr = JSON.stringify(arr);
+        localStorage.setItem("productStr", productStr);
+        this.$router.push('/buy')
+        // this.$router.push({ path: "/buy", query: { arr } });
       } else {
         Toast("您还没有选择宝贝哦~");
       }

@@ -81,10 +81,8 @@ export default {
       this.$router.push('/address')
       },
        async initbuy(){
-            console.log((this.$route.query.arr));
-            this.buylist = this.$route.query.arr;
-            console.log(this.buylist);
-            // let buyarr= [];
+        
+          this.buylist = JSON.parse(localStorage.getItem('productStr'));
            this.buylist.forEach(v=>{
                 let obj={
                     quantity:v.quantity,
