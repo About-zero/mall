@@ -203,7 +203,7 @@ export default {
         if (result.data.orders.length == 0) {
           this.badge4 = "";
         } else {
-          this.badge4 = result.data.orders.length;
+          this.badge4 = result.data.totalCount;
         }
       }
     },

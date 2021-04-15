@@ -6,7 +6,6 @@
       left-text=""
       left-arrow
       @click-left="onClickLeft"
-    
     />
     <van-address-list
       v-model="chosenAddressId"
@@ -87,7 +86,8 @@ export default {
     //   let del = await addressDel(id);
     // },
     onClickLeft() {
-      this.$router.push("/mine");
+      // this.$router.push("/mine");
+      history.go(-1);
     },
     onEdit(value) {
       console.log(value);
@@ -96,20 +96,20 @@ export default {
       // console.log(this);
       // this.$router.push({ path: `/editAdress/${id}` });
       this.$router.push({
-        name:"EditAddress",
-        query:{id}
-      })
+        name: "EditAddress",
+        query: { id },
+      });
     },
-    chooseAddress(item,index){
-      console.log(item,index);
-      localStorage.setItem('addressId',item.id)
+    chooseAddress(item, index) {
+      console.log(item, index);
+      localStorage.setItem("addressId", item.id);
       // const str =localStorage.getItem('productStr')
 
       // let arr = JSON.parse(str);
       // console.log(arr);
       // this.$router.push({path:'/buy',query:{arr}})
-      this.$router.push('/buy')
-    }
+      this.$router.push("/buy");
+    },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
@@ -128,7 +128,7 @@ export default {
 };
 </script>
 <style scoped>
-#app .van-cell--borderless .van-icon .van-icon-edit .van-address-item__edit{
-display: none;
+#app .van-cell--borderless .van-icon .van-icon-edit .van-address-item__edit {
+  display: none;
 }
 </style>

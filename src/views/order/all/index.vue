@@ -1,6 +1,12 @@
 <template>
   <div class="all">
-    <van-search v-model="value" show-action label="地址" placeholder="搜索全部订单" @search="onSearch">
+    <van-search
+      v-model="value"
+      show-action
+      label="地址"
+      placeholder="搜索全部订单"
+      @search="onSearch"
+    >
       <template #action>
         <div @click="onSearch" class="search">搜索</div>
       </template>
@@ -31,11 +37,15 @@
           <span class="orderRight11">充值成功</span>
         </li>
         <li>
-          <img @click="goDetail(v._id)" src="https://img01.yzcdn.cn/vant/ipad.jpeg" alt />
+          <img
+            @click="goDetail(v._id)"
+            src="https://img01.yzcdn.cn/vant/ipad.jpeg"
+            alt
+          />
           <div class="orderLeft23">
             <div class="orderRight20">
               <span>话费充值-河南联通</span>
-              <span class="span1">{{v.price}}</span>
+              <span class="span1">{{ v.price }}</span>
             </div>
             <div class="orderRight20 fontcolor">
               <span>充值号码:17634430748</span>
@@ -44,11 +54,13 @@
           </div>
         </li>
         <li class="ordeRight30">
-          <span class="fontcolor">总价￥{{v.price}}</span>
-          <span>实付款￥{{v.price}}</span>
+          <span class="fontcolor">总价￥{{ v.price }}</span>
+          <span>实付款￥{{ v.price }}</span>
         </li>
         <li class="buttons">
-          <van-button round type="primary" size="small" @click="delOrder(v._id)">删出订单</van-button>
+          <van-button round type="primary" size="small" @click="delOrder(v._id)"
+            >删出订单</van-button
+          >
           <van-button round type="primary" size="small">查询余额</van-button>
           <van-button round type="primary" size="small">再次充值</van-button>
         </li>
@@ -78,8 +90,13 @@ export default {
       });
     },
     async orderLists() {
-      const result = await getOrderList();
+      const obj = {
+        per: 1000000000,
+      };
+      const result = await getOrderList(obj);
       console.log(result);
+      console.log(result.data.totalCount);
+
       this.objLists = result.data.orders;
       console.log(this.objLists);
     },
