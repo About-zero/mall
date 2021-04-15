@@ -77,8 +77,8 @@ export default {
     
     methods: {
       a(item,index){
-      console.log(item,index);
-      this.$router.push('/address')
+          console.log(item,index);
+          this.$router.push({path:'/address',query:{a:2}})
       },
        async initbuy(){
         

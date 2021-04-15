@@ -23,7 +23,7 @@
             </li>
             <li style="width: 14px"></li>
             <li>
-              <van-icon name="setting-o" size="30" color="wheat" />
+              <van-icon name="setting-o" size="30" color="wheat" @click="goAddress" />
             </li>
             <li style="width: 14px"></li>
           </ul>
@@ -167,6 +167,9 @@ export default {
   watch: {},
   //方法集
   methods: {
+    goAddress(){
+      this.$router.push({path:'/address',query:{a:1}});
+    },
     ...mapMutations({
       changactive: "footer/changeActive",
     }),
